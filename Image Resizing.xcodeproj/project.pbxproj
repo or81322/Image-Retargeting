@@ -22,6 +22,8 @@
 		44BCF312198D0C6100D4881B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2F1198D0C6100D4881B /* UIKit.framework */; };
 		44BCF31A198D0C6100D4881B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44BCF318198D0C6100D4881B /* InfoPlist.strings */; };
 		44BCF31C198D0C6100D4881B /* Image_ResizingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */; };
+		44BCF328198D0E0400D4881B /* v1_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF327198D0E0400D4881B /* v1_0.m */; };
+		44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF32A198D0E4300D4881B /* Algorithm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,9 @@
 		44BCF317198D0C6100D4881B /* Image ResizingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Image ResizingTests-Info.plist"; sourceTree = "<group>"; };
 		44BCF319198D0C6100D4881B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image_ResizingTests.m; sourceTree = "<group>"; };
+		44BCF327198D0E0400D4881B /* v1_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v1_0.m; sourceTree = "<group>"; };
+		44BCF329198D0E4300D4881B /* Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Algorithm.h; sourceTree = "<group>"; };
+		44BCF32A198D0E4300D4881B /* Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Algorithm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,9 +123,9 @@
 				44BCF2FD198D0C6100D4881B /* AppDelegate.m */,
 				44BCF2FF198D0C6100D4881B /* Main_iPhone.storyboard */,
 				44BCF302198D0C6100D4881B /* Main_iPad.storyboard */,
-				44BCF305198D0C6100D4881B /* ViewController.h */,
-				44BCF306198D0C6100D4881B /* ViewController.m */,
+				44BCF325198D0D4600D4881B /* View Controllers */,
 				44BCF308198D0C6100D4881B /* Images.xcassets */,
+				44BCF326198D0D5400D4881B /* Model */,
 				44BCF2F4198D0C6100D4881B /* Supporting Files */,
 			);
 			path = "Image Resizing";
@@ -129,6 +134,7 @@
 		44BCF2F4198D0C6100D4881B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				44BCF327198D0E0400D4881B /* v1_0.m */,
 				44BCF2F5198D0C6100D4881B /* Image Resizing-Info.plist */,
 				44BCF2F6198D0C6100D4881B /* InfoPlist.strings */,
 				44BCF2F9198D0C6100D4881B /* main.m */,
@@ -153,6 +159,24 @@
 				44BCF318198D0C6100D4881B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		44BCF325198D0D4600D4881B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				44BCF305198D0C6100D4881B /* ViewController.h */,
+				44BCF306198D0C6100D4881B /* ViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		44BCF326198D0D5400D4881B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				44BCF329198D0E4300D4881B /* Algorithm.h */,
+				44BCF32A198D0E4300D4881B /* Algorithm.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +224,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Or Maayan & Michael Leybovich";
+				ORGANIZATIONNAME = "Or Maayan & Micheal Leybovich";
 				TargetAttributes = {
 					44BCF30D198D0C6100D4881B = {
 						TestTargetID = 44BCF2E9198D0C6100D4881B;
@@ -253,9 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */,
 				44BCF307198D0C6100D4881B /* ViewController.m in Sources */,
 				44BCF2FE198D0C6100D4881B /* AppDelegate.m in Sources */,
 				44BCF2FA198D0C6100D4881B /* main.m in Sources */,
+				44BCF328198D0E0400D4881B /* v1_0.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +419,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
 				INFOPLIST_FILE = "Image Resizing/Image Resizing-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -406,6 +433,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
 				INFOPLIST_FILE = "Image Resizing/Image Resizing-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
