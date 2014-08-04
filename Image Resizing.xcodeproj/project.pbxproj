@@ -24,6 +24,8 @@
 		44BCF31C198D0C6100D4881B /* Image_ResizingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */; };
 		44BCF328198D0E0400D4881B /* v1_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF327198D0E0400D4881B /* v1_0.m */; };
 		44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF32A198D0E4300D4881B /* Algorithm.m */; };
+		E965840E19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
+		E965840F19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		44BCF327198D0E0400D4881B /* v1_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v1_0.m; sourceTree = "<group>"; };
 		44BCF329198D0E4300D4881B /* Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Algorithm.h; sourceTree = "<group>"; };
 		44BCF32A198D0E4300D4881B /* Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Algorithm.m; sourceTree = "<group>"; };
+		E965840D19903B5800317181 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,7 @@
 			files = (
 				44BCF2F0198D0C6100D4881B /* CoreGraphics.framework in Frameworks */,
 				44BCF2F2198D0C6100D4881B /* UIKit.framework in Frameworks */,
+				E965840E19903B5800317181 /* opencv2.framework in Frameworks */,
 				44BCF2EE198D0C6100D4881B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +83,7 @@
 			files = (
 				44BCF310198D0C6100D4881B /* XCTest.framework in Frameworks */,
 				44BCF312198D0C6100D4881B /* UIKit.framework in Frameworks */,
+				E965840F19903B5800317181 /* opencv2.framework in Frameworks */,
 				44BCF311198D0C6100D4881B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,6 +113,7 @@
 		44BCF2EC198D0C6100D4881B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E965840D19903B5800317181 /* opencv2.framework */,
 				44BCF2ED198D0C6100D4881B /* Foundation.framework */,
 				44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */,
 				44BCF2F1198D0C6100D4881B /* UIKit.framework */,
@@ -416,6 +422,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/michaelleybovich/Downloads,
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
 				INFOPLIST_FILE = "Image Resizing/Image Resizing-Info.plist";
@@ -430,6 +441,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/michaelleybovich/Downloads,
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
 				INFOPLIST_FILE = "Image Resizing/Image Resizing-Info.plist";
@@ -447,6 +463,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
@@ -469,6 +486,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
@@ -498,6 +516,7 @@
 				44BCF321198D0C6100D4881B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		44BCF322198D0C6100D4881B /* Build configuration list for PBXNativeTarget "Image ResizingTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +525,7 @@
 				44BCF324198D0C6100D4881B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
