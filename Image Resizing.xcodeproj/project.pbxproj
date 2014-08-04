@@ -22,7 +22,6 @@
 		44BCF312198D0C6100D4881B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2F1198D0C6100D4881B /* UIKit.framework */; };
 		44BCF31A198D0C6100D4881B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44BCF318198D0C6100D4881B /* InfoPlist.strings */; };
 		44BCF31C198D0C6100D4881B /* Image_ResizingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */; };
-		44BCF328198D0E0400D4881B /* v1_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF327198D0E0400D4881B /* v1_0.m */; };
 		44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF32A198D0E4300D4881B /* Algorithm.m */; };
 		E965840E19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
 		E965840F19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
@@ -287,7 +286,6 @@
 				44BCF307198D0C6100D4881B /* ViewController.m in Sources */,
 				44BCF2FE198D0C6100D4881B /* AppDelegate.m in Sources */,
 				44BCF2FA198D0C6100D4881B /* main.m in Sources */,
-				44BCF328198D0E0400D4881B /* v1_0.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
