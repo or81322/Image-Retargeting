@@ -41,6 +41,16 @@
                                     <segue destination="2Po-8x-Vht" kind="push" id="zCR-4B-7lX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJB-Ck-PBw">
+                                <rect key="frame" x="82" y="343" width="157" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Open Grayscale Image">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Ffd-nD-Mat" kind="push" id="H4v-SQ-Jad"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -95,11 +105,60 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="579" y="-192"/>
+            <point key="canvasLocation" x="595" y="-759"/>
+        </scene>
+        <!--Image Show View Controller-->
+        <scene sceneID="Xte-He-1qz">
+            <objects>
+                <viewController id="Ffd-nD-Mat" customClass="ImageShowViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aHv-S0-CNK"/>
+                        <viewControllerLayoutGuide type="bottom" id="cBV-bx-1m6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZvH-es-s3T">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZG-j1-9DE">
+                                <rect key="frame" x="0.0" y="65" width="320" height="527"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="qXC-72-onD" appends="YES" id="6VY-uP-24a"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="wwh-T5-gBS">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jTz-2c-nia">
+                            <rect key="frame" x="102" y="7" width="116" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Auto Retargeting">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="startAutomaticRetargeting:" destination="Ffd-nD-Mat" eventType="touchUpInside" id="j74-o7-Kp1"/>
+                            </connections>
+                        </button>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="NZG-j1-9DE" id="2Tz-ud-Ahg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9kk-Ky-1hM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="qXC-72-onD">
+                    <connections>
+                        <action selector="userTouchedTheScreen:" destination="Ffd-nD-Mat" id="ss3-vN-2jv"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="595" y="-100"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Desert.jpg" width="1024" height="768"/>
+        <image name="Desert.jpg" width="512" height="384"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
