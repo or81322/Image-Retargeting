@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44A60A721990ED45004A90CF /* Desert.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 44A60A711990ED45004A90CF /* Desert.jpg */; };
 		44BCF2EE198D0C6100D4881B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2ED198D0C6100D4881B /* Foundation.framework */; };
 		44BCF2F0198D0C6100D4881B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */; };
 		44BCF2F2198D0C6100D4881B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2F1198D0C6100D4881B /* UIKit.framework */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44A60A711990ED45004A90CF /* Desert.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Desert.jpg; sourceTree = "<group>"; };
 		44BCF2EA198D0C6100D4881B /* Image Resizing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Image Resizing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44BCF2ED198D0C6100D4881B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,6 +141,7 @@
 		44BCF2F4198D0C6100D4881B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				44A60A711990ED45004A90CF /* Desert.jpg */,
 				44BCF327198D0E0400D4881B /* v1_0.m */,
 				44BCF2F5198D0C6100D4881B /* Image Resizing-Info.plist */,
 				44BCF2F6198D0C6100D4881B /* InfoPlist.strings */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44BCF304198D0C6100D4881B /* Main_iPad.storyboard in Resources */,
+				44A60A721990ED45004A90CF /* Desert.jpg in Resources */,
 				44BCF309198D0C6100D4881B /* Images.xcassets in Resources */,
 				44BCF301198D0C6100D4881B /* Main_iPhone.storyboard in Resources */,
 				44BCF2F8198D0C6100D4881B /* InfoPlist.strings in Resources */,
