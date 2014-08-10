@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SaliencyFilter.h"
 
 @interface Algorithm : NSObject
+
+-(id)initWithTargetImageSize:(CGSize)targetImageSize andGridSize:(CGSize)gridSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter;
+
+//
+
+-(UIImage *)autoRetargeting:(UIImage *)image;
+
+-(UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage;
 
 @end
