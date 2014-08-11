@@ -7,8 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "Algorithm.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *image;
 
 @end
 
@@ -29,6 +31,8 @@
 - (IBAction)startAutomaticRetargeting:(id)sender {
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    
+    self.image.image = [([[Algorithm alloc] init]) autoRetargeting:self.image.image];
 }
 
 - (IBAction)userTouchedTheScreen:(id)sender {

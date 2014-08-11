@@ -97,6 +97,9 @@
                             </connections>
                         </button>
                     </navigationItem>
+                    <connections>
+                        <outlet property="image" destination="3iz-D1-DxO" id="4dr-QP-shI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ES4-Ye-k0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="2Sb-B7-F1B">

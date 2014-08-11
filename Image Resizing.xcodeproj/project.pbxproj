@@ -27,6 +27,7 @@
 		44EA51C31996D804005E359B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44EA51C21996D804005E359B /* MainViewController.m */; };
 		44ED9DC41998244600A770BA /* SaliencyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ED9DC31998244600A770BA /* SaliencyFilter.m */; };
 		44ED9DC7199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */; };
+		44EDA28A199903AC00A770BA /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EDA2851999039900A770BA /* libGPUImage.a */; };
 		E965840E19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
 		E965840F19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 44BCF2E9198D0C6100D4881B;
 			remoteInfo = "Image Resizing";
+		};
+		44EDA2841999039900A770BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44EDA27E1999039900A770BA /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		44EDA2861999039900A770BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44EDA27E1999039900A770BA /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCE209E51943F20C002FEED8;
+			remoteInfo = GPUImageFramework;
+		};
+		44EDA288199903A700A770BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44EDA27E1999039900A770BA /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
+			remoteInfo = GPUImage;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -72,6 +94,7 @@
 		44ED9DC31998244600A770BA /* SaliencyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaliencyFilter.m; sourceTree = "<group>"; };
 		44ED9DC5199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSobelEdgeDetectionSaliencyFilter.h; sourceTree = "<group>"; };
 		44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSobelEdgeDetectionSaliencyFilter.m; sourceTree = "<group>"; };
+		44EDA27E1999039900A770BA /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		E965840D19903B5800317181 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44EDA28A199903AC00A770BA /* libGPUImage.a in Frameworks */,
 				44BCF2F0198D0C6100D4881B /* CoreGraphics.framework in Frameworks */,
 				44BCF2F2198D0C6100D4881B /* UIKit.framework in Frameworks */,
 				E965840E19903B5800317181 /* opencv2.framework in Frameworks */,
@@ -104,6 +128,7 @@
 		44BCF2E1198D0C6100D4881B = {
 			isa = PBXGroup;
 			children = (
+				44EDA27E1999039900A770BA /* GPUImage.xcodeproj */,
 				44BCF2F3198D0C6100D4881B /* Image Resizing */,
 				44BCF315198D0C6100D4881B /* Image ResizingTests */,
 				44BCF2EC198D0C6100D4881B /* Frameworks */,
@@ -202,6 +227,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		44EDA27F1999039900A770BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				44EDA2851999039900A770BA /* libGPUImage.a */,
+				44EDA2871999039900A770BA /* GPUImage.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -216,6 +250,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				44EDA289199903A700A770BA /* PBXTargetDependency */,
 			);
 			name = "Image Resizing";
 			productName = "Image Resizing";
@@ -268,6 +303,12 @@
 			mainGroup = 44BCF2E1198D0C6100D4881B;
 			productRefGroup = 44BCF2EB198D0C6100D4881B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 44EDA27F1999039900A770BA /* Products */;
+					ProjectRef = 44EDA27E1999039900A770BA /* GPUImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				44BCF2E9198D0C6100D4881B /* Image Resizing */,
@@ -275,6 +316,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		44EDA2851999039900A770BA /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = 44EDA2841999039900A770BA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		44EDA2871999039900A770BA /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 44EDA2861999039900A770BA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		44BCF2E8198D0C6100D4881B /* Resources */ = {
@@ -329,6 +387,11 @@
 			isa = PBXTargetDependency;
 			target = 44BCF2E9198D0C6100D4881B /* Image Resizing */;
 			targetProxy = 44BCF313198D0C6100D4881B /* PBXContainerItemProxy */;
+		};
+		44EDA289199903A700A770BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage;
+			targetProxy = 44EDA288199903A700A770BA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -443,6 +506,7 @@
 		44BCF320198D0C6100D4881B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -452,8 +516,10 @@
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
 				INFOPLIST_FILE = "Image Resizing/Image Resizing-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/GPUImage/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -461,6 +527,7 @@
 		44BCF321198D0C6100D4881B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -470,8 +537,10 @@
 				GCC_PREFIX_HEADER = "Image Resizing/Image Resizing-Prefix.pch";
 				INFOPLIST_FILE = "Image Resizing/Image Resizing-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/GPUImage/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -7,6 +7,7 @@
 //
 
 #import "Algorithm.h"
+#import "GPUImageSobelEdgeDetectionSaliencyFilter.h"
 
 @interface Algorithm ()
 
@@ -59,7 +60,7 @@
     CGFloat percentage = DEFAULT_PERCENTAGE;
     
     //default saliency filter
-    SaliencyFilter *saliencyFilter = [[SaliencyFilter alloc] init];
+    GPUImageSobelEdgeDetectionSaliencyFilter *saliencyFilter = [[GPUImageSobelEdgeDetectionSaliencyFilter alloc] init];
     
     return [self initWithTargetImageSize:targetImageSize andGridSize:gridSize andPercentage:percentage usingSaliencyFilter:saliencyFilter];
 }
@@ -120,9 +121,10 @@
 -(UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {
     self.image = image;
     
-    // TODO
+    return saliencyImage;
     
-    return nil;
+    // TODO
+
 }
 
 @end

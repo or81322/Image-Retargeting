@@ -12,17 +12,23 @@
 @implementation GPUImageSobelEdgeDetectionSaliencyFilter
 
 -(UIImage *)getSaliencyImage:(UIImage *)image {
-    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
-    GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
     GPUImageSobelEdgeDetectionFilter *sobelEdgeDetectionFilter = [[GPUImageSobelEdgeDetectionFilter alloc] init];
     
-    [stillImageSource addTarget:grayscaleFilter];
-    [stillImageSource addTarget:sobelEdgeDetectionFilter];
+    return [sobelEdgeDetectionFilter imageByFilteringImage:image];
     
-    [sobelEdgeDetectionFilter useNextFrameForImageCapture];
-    [stillImageSource processImage];
-    
-    return [sobelEdgeDetectionFilter imageFromCurrentFramebuffer];
+    /*
+     GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
+     
+     GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
+     
+     //[stillImageSource addTarget:grayscaleFilter];
+     [stillImageSource addTarget:sobelEdgeDetectionFilter];
+     
+     [sobelEdgeDetectionFilter useNextFrameForImageCapture];
+     [stillImageSource processImage];
+     
+     return [sobelEdgeDetectionFilter imageFromCurrentFramebuffer];
+     */
 }
 
 
