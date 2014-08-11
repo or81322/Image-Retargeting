@@ -7,6 +7,7 @@
 //
 
 #import "GPUImageSobelEdgeDetectionSaliencyFilter.h"
+#import "GPUImage.h"
 
 @implementation GPUImageSobelEdgeDetectionSaliencyFilter
 
@@ -21,7 +22,7 @@
     [sobelEdgeDetectionFilter useNextFrameForImageCapture];
     [stillImageSource processImage];
     
-    return [stillImageFilter imageFromCurrentFramebuffer];
+    return [sobelEdgeDetectionFilter imageFromCurrentFramebuffer];
 }
 
 

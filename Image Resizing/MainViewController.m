@@ -59,6 +59,26 @@
     return _imagePickerPopover;
 }
 
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Show Image"]) {
+        if ([segue.destinationViewController respondsToSelector:@selector(setImage:)]) {
+            [segue.destinationViewController performSelector:@selector(setImage:) withObject:self.image];
+        }
+    }
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"Show Image"]) {
+        return (!self.imagePickerPopover.popoverVisible) ? YES : NO;
+    } else {
+        return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
+    }
+}
+
 #pragma mark - IBActions
 
 - (IBAction)pickImage:(id)sender {
