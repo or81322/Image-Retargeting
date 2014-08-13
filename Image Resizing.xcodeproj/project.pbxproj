@@ -95,6 +95,7 @@
 		44ED9DC5199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSobelEdgeDetectionSaliencyFilter.h; sourceTree = "<group>"; };
 		44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSobelEdgeDetectionSaliencyFilter.m; sourceTree = "<group>"; };
 		44EDA27E1999039900A770BA /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		E92E38BD199BDD9300639F8D /* cvxgen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cvxgen.xcodeproj; path = ../../Downloads/cvxgen/cvxgen.xcodeproj; sourceTree = "<group>"; };
 		E965840D19903B5800317181 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +129,7 @@
 		44BCF2E1198D0C6100D4881B = {
 			isa = PBXGroup;
 			children = (
+				E92E38BD199BDD9300639F8D /* cvxgen.xcodeproj */,
 				44EDA27E1999039900A770BA /* GPUImage.xcodeproj */,
 				44BCF2F3198D0C6100D4881B /* Image Resizing */,
 				44BCF315198D0C6100D4881B /* Image ResizingTests */,
@@ -236,6 +238,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E92E38BE199BDD9300639F8D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -304,6 +313,10 @@
 			productRefGroup = 44BCF2EB198D0C6100D4881B /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = E92E38BE199BDD9300639F8D /* Products */;
+					ProjectRef = E92E38BD199BDD9300639F8D /* cvxgen.xcodeproj */;
+				},
 				{
 					ProductGroup = 44EDA27F1999039900A770BA /* Products */;
 					ProjectRef = 44EDA27E1999039900A770BA /* GPUImage.xcodeproj */;
