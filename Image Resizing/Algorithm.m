@@ -112,6 +112,12 @@
     return self.percentage * self.imageWidth / self.numberOfGridCols ;
 }
 
+#pragma mark - assertions
+
+-(BOOL)isCroppingNeeded {
+    return !((self.targetImageHeight >= self.percentage * self.imageHeight) && (self.targetImageWidth >= self.percentage * self.imageWidth));
+}
+
 #pragma mark - algorithm
 
 -(UIImage *)autoRetargeting:(UIImage *)image {
