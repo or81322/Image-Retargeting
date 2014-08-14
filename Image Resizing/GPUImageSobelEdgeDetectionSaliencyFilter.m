@@ -12,23 +12,23 @@
 @implementation GPUImageSobelEdgeDetectionSaliencyFilter
 
 -(UIImage *)getSaliencyImage:(UIImage *)image {
+    //GPUImageOpeningFilter *dilationFilter                     = [[GPUImageOpeningFilter alloc] initWithRadius:4];
+    //GPUImageClosingFilter *dilationFilter                     = [[GPUImageClosingFilter alloc] initWithRadius:4];
+    //GPUImageErosionFilter *dilationFilter                     = [[GPUImageErosionFilter alloc] initWithRadius:4];
+    GPUImageDilationFilter *dilationFilter                     = [[GPUImageDilationFilter alloc] initWithRadius:4];
+    
     GPUImageSobelEdgeDetectionFilter *sobelEdgeDetectionFilter = [[GPUImageSobelEdgeDetectionFilter alloc] init];
     
-    return [sobelEdgeDetectionFilter imageByFilteringImage:image];
+    GPUImagePicture *stillImageSource                          = [[GPUImagePicture alloc] initWithImage:image];
     
-    /*
-     GPUImageGrayscaleFilter *grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
-     
-     GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
-     
-     //[stillImageSource addTarget:grayscaleFilter];
-     [stillImageSource addTarget:sobelEdgeDetectionFilter];
-     
-     [sobelEdgeDetectionFilter useNextFrameForImageCapture];
-     [stillImageSource processImage];
-     
-     return [sobelEdgeDetectionFilter imageFromCurrentFramebuffer];
-     */
+    [stillImageSource addTarget:sobelEdgeDetectionFilter];
+    [sobelEdgeDetectionFilter addTarget:dilationFilter];
+    
+    [dilationFilter useNextFrameForImageCapture];
+    
+    [stillImageSource processImage];
+    
+    return [dilationFilter imageFromCurrentFramebuffer];
 }
 
 
