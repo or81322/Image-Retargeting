@@ -19,7 +19,7 @@ typedef struct {
 } CvxParams;
 
 @interface CVXSolver ()
-
+//
 @property (nonatomic) Vars vars;
 @property (nonatomic) Params params;
 @property (nonatomic) Workspace work;
