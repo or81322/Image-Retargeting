@@ -8,6 +8,7 @@
 
 #import "CVXSolver.h"
 #import "solver.h"
+// stam dafuk
 
 typedef struct {
     double *Q;
