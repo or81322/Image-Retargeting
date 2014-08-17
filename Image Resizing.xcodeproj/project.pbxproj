@@ -29,6 +29,13 @@
 		44ED9DC41998244600A770BA /* SaliencyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ED9DC31998244600A770BA /* SaliencyFilter.m */; };
 		44ED9DC7199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */; };
 		44EDA28A199903AC00A770BA /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EDA2851999039900A770BA /* libGPUImage.a */; };
+		E9184CB419A122CB007F991D /* description.cvxgen in Resources */ = {isa = PBXBuildFile; fileRef = E9184CAD19A122CB007F991D /* description.cvxgen */; };
+		E9184CB519A122CB007F991D /* ldl.c in Sources */ = {isa = PBXBuildFile; fileRef = E9184CAE19A122CB007F991D /* ldl.c */; };
+		E9184CB619A122CB007F991D /* matrix_support.c in Sources */ = {isa = PBXBuildFile; fileRef = E9184CAF19A122CB007F991D /* matrix_support.c */; };
+		E9184CB719A122CB007F991D /* solver.c in Sources */ = {isa = PBXBuildFile; fileRef = E9184CB019A122CB007F991D /* solver.c */; };
+		E9184CB819A122CB007F991D /* testsolver.c in Sources */ = {isa = PBXBuildFile; fileRef = E9184CB219A122CB007F991D /* testsolver.c */; };
+		E9184CB919A122CB007F991D /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = E9184CB319A122CB007F991D /* util.c */; };
+		E9184CBF19A12303007F991D /* CVXSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = E9184CBE19A12303007F991D /* CVXSolver.m */; };
 		E965840E19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
 		E965840F19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
 /* End PBXBuildFile section */
@@ -98,6 +105,15 @@
 		44ED9DC5199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSobelEdgeDetectionSaliencyFilter.h; sourceTree = "<group>"; };
 		44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSobelEdgeDetectionSaliencyFilter.m; sourceTree = "<group>"; };
 		44EDA27E1999039900A770BA /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		E9184CAD19A122CB007F991D /* description.cvxgen */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = description.cvxgen; sourceTree = "<group>"; };
+		E9184CAE19A122CB007F991D /* ldl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldl.c; sourceTree = "<group>"; };
+		E9184CAF19A122CB007F991D /* matrix_support.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = matrix_support.c; sourceTree = "<group>"; };
+		E9184CB019A122CB007F991D /* solver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = solver.c; sourceTree = "<group>"; };
+		E9184CB119A122CB007F991D /* solver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = solver.h; sourceTree = "<group>"; };
+		E9184CB219A122CB007F991D /* testsolver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = testsolver.c; sourceTree = "<group>"; };
+		E9184CB319A122CB007F991D /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		E9184CBD19A12303007F991D /* CVXSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVXSolver.h; sourceTree = "<group>"; };
+		E9184CBE19A12303007F991D /* CVXSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVXSolver.m; sourceTree = "<group>"; };
 		E965840D19903B5800317181 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -180,6 +196,7 @@
 		44BCF2F4198D0C6100D4881B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E9184CBC19A122D4007F991D /* cvxgen */,
 				44A60A711990ED45004A90CF /* Desert.jpg */,
 				44BCF327198D0E0400D4881B /* v1_0.m */,
 				44BCF2F5198D0C6100D4881B /* Image Resizing-Info.plist */,
@@ -228,6 +245,8 @@
 				44ED9DC31998244600A770BA /* SaliencyFilter.m */,
 				44ED9DC5199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.h */,
 				44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */,
+				E9184CBD19A12303007F991D /* CVXSolver.h */,
+				E9184CBE19A12303007F991D /* CVXSolver.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -239,6 +258,20 @@
 				44EDA2871999039900A770BA /* GPUImage.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E9184CBC19A122D4007F991D /* cvxgen */ = {
+			isa = PBXGroup;
+			children = (
+				E9184CAD19A122CB007F991D /* description.cvxgen */,
+				E9184CAE19A122CB007F991D /* ldl.c */,
+				E9184CAF19A122CB007F991D /* matrix_support.c */,
+				E9184CB019A122CB007F991D /* solver.c */,
+				E9184CB119A122CB007F991D /* solver.h */,
+				E9184CB219A122CB007F991D /* testsolver.c */,
+				E9184CB319A122CB007F991D /* util.c */,
+			);
+			name = cvxgen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44BCF304198D0C6100D4881B /* Main_iPad.storyboard in Resources */,
+				E9184CB419A122CB007F991D /* description.cvxgen in Resources */,
 				44A60A721990ED45004A90CF /* Desert.jpg in Resources */,
 				44BCF309198D0C6100D4881B /* Images.xcassets in Resources */,
 				44BCF301198D0C6100D4881B /* Main_iPhone.storyboard in Resources */,
@@ -367,13 +401,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9184CB919A122CB007F991D /* util.c in Sources */,
+				E9184CB819A122CB007F991D /* testsolver.c in Sources */,
 				44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */,
 				44ED9DC41998244600A770BA /* SaliencyFilter.m in Sources */,
 				44BCF307198D0C6100D4881B /* ViewController.m in Sources */,
 				44ED9DC7199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m in Sources */,
 				44BCF2FE198D0C6100D4881B /* AppDelegate.m in Sources */,
 				44EA51C31996D804005E359B /* MainViewController.m in Sources */,
+				E9184CBF19A12303007F991D /* CVXSolver.m in Sources */,
+				E9184CB719A122CB007F991D /* solver.c in Sources */,
+				E9184CB519A122CB007F991D /* ldl.c in Sources */,
 				44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */,
+				E9184CB619A122CB007F991D /* matrix_support.c in Sources */,
 				44BCF2FA198D0C6100D4881B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
