@@ -24,6 +24,7 @@
 		44BCF31A198D0C6100D4881B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44BCF318198D0C6100D4881B /* InfoPlist.strings */; };
 		44BCF31C198D0C6100D4881B /* Image_ResizingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */; };
 		44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF32A198D0E4300D4881B /* Algorithm.m */; };
+		44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C8E79019A0282700D7A3AE /* UIImage+Scale.m */; };
 		44EA51C31996D804005E359B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44EA51C21996D804005E359B /* MainViewController.m */; };
 		44ED9DC41998244600A770BA /* SaliencyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ED9DC31998244600A770BA /* SaliencyFilter.m */; };
 		44ED9DC7199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */; };
@@ -87,7 +88,9 @@
 		44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image_ResizingTests.m; sourceTree = "<group>"; };
 		44BCF327198D0E0400D4881B /* v1_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v1_0.m; sourceTree = "<group>"; };
 		44BCF329198D0E4300D4881B /* Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Algorithm.h; sourceTree = "<group>"; };
-		44BCF32A198D0E4300D4881B /* Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Algorithm.m; sourceTree = "<group>"; };
+		44BCF32A198D0E4300D4881B /* Algorithm.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Algorithm.m; sourceTree = "<group>"; };
+		44C8E78F19A0282700D7A3AE /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
+		44C8E79019A0282700D7A3AE /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		44EA51C11996D804005E359B /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		44EA51C21996D804005E359B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		44ED9DC21998244500A770BA /* SaliencyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaliencyFilter.h; sourceTree = "<group>"; };
@@ -95,7 +98,6 @@
 		44ED9DC5199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSobelEdgeDetectionSaliencyFilter.h; sourceTree = "<group>"; };
 		44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSobelEdgeDetectionSaliencyFilter.m; sourceTree = "<group>"; };
 		44EDA27E1999039900A770BA /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
-		E92E38BD199BDD9300639F8D /* cvxgen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cvxgen.xcodeproj; path = ../../Downloads/cvxgen/cvxgen.xcodeproj; sourceTree = "<group>"; };
 		E965840D19903B5800317181 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,7 +131,6 @@
 		44BCF2E1198D0C6100D4881B = {
 			isa = PBXGroup;
 			children = (
-				E92E38BD199BDD9300639F8D /* cvxgen.xcodeproj */,
 				44EDA27E1999039900A770BA /* GPUImage.xcodeproj */,
 				44BCF2F3198D0C6100D4881B /* Image Resizing */,
 				44BCF315198D0C6100D4881B /* Image ResizingTests */,
@@ -166,6 +167,8 @@
 				44BCF2FD198D0C6100D4881B /* AppDelegate.m */,
 				44BCF2FF198D0C6100D4881B /* Main_iPhone.storyboard */,
 				44BCF302198D0C6100D4881B /* Main_iPad.storyboard */,
+				44C8E78F19A0282700D7A3AE /* UIImage+Scale.h */,
+				44C8E79019A0282700D7A3AE /* UIImage+Scale.m */,
 				44BCF325198D0D4600D4881B /* View Controllers */,
 				44BCF308198D0C6100D4881B /* Images.xcassets */,
 				44BCF326198D0D5400D4881B /* Model */,
@@ -234,13 +237,6 @@
 			children = (
 				44EDA2851999039900A770BA /* libGPUImage.a */,
 				44EDA2871999039900A770BA /* GPUImage.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E92E38BE199BDD9300639F8D /* Products */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -314,10 +310,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = E92E38BE199BDD9300639F8D /* Products */;
-					ProjectRef = E92E38BD199BDD9300639F8D /* cvxgen.xcodeproj */;
-				},
-				{
 					ProductGroup = 44EDA27F1999039900A770BA /* Products */;
 					ProjectRef = 44EDA27E1999039900A770BA /* GPUImage.xcodeproj */;
 				},
@@ -381,6 +373,7 @@
 				44ED9DC7199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m in Sources */,
 				44BCF2FE198D0C6100D4881B /* AppDelegate.m in Sources */,
 				44EA51C31996D804005E359B /* MainViewController.m in Sources */,
+				44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */,
 				44BCF2FA198D0C6100D4881B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
