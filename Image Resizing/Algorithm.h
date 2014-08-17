@@ -11,12 +11,16 @@
 
 @interface Algorithm : NSObject
 
--(id)initWithTargetImageSize:(CGSize)targetImageSize andGridSize:(CGSize)gridSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter;
+- (id)initWithTargetImageSize:(CGSize)targetImageSize andGridSize:(CGSize)gridSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter;
 
 //
 
--(UIImage *)autoRetargeting:(UIImage *)image;
+- (BOOL)isCroppingNeeded;
 
--(UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage;
+//
+
+- (UIImage *)autoRetargeting:(UIImage *)image;
+
+- (UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage;
 
 @end
