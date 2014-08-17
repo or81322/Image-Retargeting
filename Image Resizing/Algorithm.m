@@ -145,14 +145,15 @@ using namespace std;
     Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
     
     for (int k = 0 ; k < K.size.p[0] ; k++) {
-        int r = k / self.numberOfGridRows ;
+        int r = k / self.numberOfGridCols ;// floor
         int c = k % self.numberOfGridCols ;
         
         Vec4b intensity = saliencyMap.at<Vec4b>(r, c);
-        uchar blue = intensity.val[0];
-        uchar green = intensity.val[1];
+        //uchar blue = intensity.val[0];
+        //uchar green = intensity.val[1];
         uchar red = intensity.val[2];
-        uchar alpha = intensity.val[3];
+        //uchar alpha = intensity.val[3];
+        
         // all the color values are the same if we get gray image
         // so we will use red (randomly chosen)
         double saliencyValue = (double) red / 255;
