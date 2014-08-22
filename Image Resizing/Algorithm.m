@@ -145,6 +145,9 @@ using namespace std;
     // ASAP Energy
     Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
     
+    int rowHeight = self.imageHeight / self.numberOfGridRows;
+    int colWidth = self.imageWidth / self.numberOfGridCols;
+    
     for (int k = 0 ; k < K.size.p[0] ; k++) {
         int r = k / self.numberOfGridCols ;// floor
         int c = k % self.numberOfGridCols ;
@@ -161,9 +164,11 @@ using namespace std;
         
         for (int l = 0 ; l < K.size.p[1] ; l++) {
             if (l == r) {
-                K.at<double>(k, l) = saliencyValue * self.numberOfGridRows / self.imageHeight;
+                //K.at<double>(k, l) = saliencyValue * self.numberOfGridRows / self.imageHeight;
+                K.at<double>(k, l) = saliencyValue / rowHeight;
             } else if (l == (self.numberOfGridRows + c)) {
-                K.at<double>(k, l) = -1 * saliencyValue * self.numberOfGridCols / self.imageWidth;
+                //K.at<double>(k, l) = -1 * saliencyValue * self.numberOfGridCols / self.imageWidth;
+                K.at<double>(k, l) = -1 * saliencyValue / colWidth;
             } else {
                 K.at<double>(k, l) = 0;
             }
@@ -185,11 +190,54 @@ using namespace std;
     cvxParams->targetHeight = self.targetImageHeight;
     cvxParams->targetWidth = self.targetImageWidth;
     
-    NSArray *sol = [CVXSolver solveWithCvxParams:cvxParams];
+    NSArray *s = [CVXSolver solveWithCvxParams:cvxParams];
     
     free(cvxParams->Q);
     free(cvxParams->b);
     free(cvxParams);
+    
+    NSArray *sRows = [s objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.numberOfGridRows)]];
+    NSArray *sCols = [s objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.numberOfGridRows, self.numberOfGridCols)]];
+    
+    NSMutableArray *sRowsRounded = [[NSMutableArray alloc] initWithCapacity:[sRows count]];
+    NSMutableArray *sColsRounded = [[NSMutableArray alloc] initWithCapacity:[sCols count]];
+    
+    for (int i = 0; i < [sRows count]; ++i)
+        sRowsRounded[i] = [NSNumber numberWithDouble:round([(NSNumber *)sRows[i] doubleValue])];
+    for (int j = 0; j < [sCols count]; ++j)
+        sColsRounded[j] = [NSNumber numberWithDouble:round([(NSNumber *)sCols[j] doubleValue])];
+    
+    Mat q;
+    Mat img = [self cvMatFromUIImage:self.image];
+    int startCol, endCol;
+    
+    for (int j = 0; j < self.numberOfGridCols; ++j) {
+        startCol = floor(j * colWidth);
+        endCol = ceil((j + 1) * colWidth);
+        
+        if (j == 1) {
+            resize(img.colRange(startCol, endCol), q, cv::Size([sColsRounded[j] integerValue], img.rows));
+            continue;
+        }
+        Mat tmp;
+        resize(img.colRange(startCol, endCol), tmp, cv::Size([sColsRounded[j] integerValue], img.rows));
+        //vconcat(q, tmp, q);
+    }
+    Mat deformatedImage;
+    int startRow, endRow;
+    
+    for (int i = 0; i < self.numberOfGridRows; ++i) {
+        startRow = floor(i * rowHeight);
+        endRow = ceil((i + 1) * rowHeight);
+        
+        if (i == 1) {
+            resize(q.rowRange(startRow, endRow), deformatedImage, cv::Size(q.cols, [sRowsRounded[i] integerValue]));
+            continue;
+        }
+        Mat tmp;
+        resize(q.rowRange(startRow, endRow), tmp, cv::Size(q.cols, [sRowsRounded[i] integerValue]));
+        //hconcat(deformatedImage, tmp, deformatedImage);
+    }
     
     return [self UIImageFromCVMat:saliencyMap];
 
