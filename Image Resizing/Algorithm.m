@@ -185,7 +185,7 @@ using namespace std;
     cvxParams->targetHeight = self.targetImageHeight;
     cvxParams->targetWidth = self.targetImageWidth;
     
-    NSArray *sol = [[[CVXSolver alloc] init] solveWithCvxParams:cvxParams];
+    NSArray *sol = [CVXSolver solveWithCvxParams:cvxParams];
     
     free(cvxParams->Q);
     free(cvxParams->b);

@@ -19,6 +19,6 @@ typedef struct {
     double targetWidth;
 } CvxParams;
 
-- (NSArray *)solveWithCvxParams:(CvxParams *)cvxParams;
++ (NSArray *)solveWithCvxParams:(CvxParams *)cvxParams;
 
 @end

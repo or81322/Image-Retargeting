@@ -24,7 +24,7 @@ Settings settings;
 #define DEFAULT_NUMBER_OF_GRID_COLS 25
 #define DEFAULT_GRID_SIZE (DEFAULT_NUMBER_OF_GRID_ROWS + DEFAULT_NUMBER_OF_GRID_COLS)
 
-- (void)loadDataWithParams:(CvxParams *)cvxParams
++ (void)loadDataWithParams:(CvxParams *)cvxParams
 {
     params.imageHeight[0] = cvxParams->imageHeight;
     params.imageWidth[0] = cvxParams->imageWidth;
@@ -39,7 +39,7 @@ Settings settings;
             params.Q[i*DEFAULT_GRID_SIZE + j] = cvxParams->Q[i*DEFAULT_GRID_SIZE + j];
 }
 
-- (NSArray *)solveWithCvxParams:(CvxParams *)cvxParams
++ (NSArray *)solveWithCvxParams:(CvxParams *)cvxParams
 {
     set_defaults();
     setup_indexing();
