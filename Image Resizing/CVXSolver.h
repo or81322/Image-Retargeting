@@ -10,4 +10,15 @@
 
 @interface CVXSolver : NSObject
 
+typedef struct {
+    double *Q;
+    double *b;
+    double imageHeight;
+    double imageWidth;
+    double targetHeight;
+    double targetWidth;
+} CvxParams;
+
+- (NSArray *)solveWithCvxParams:(CvxParams *)cvxParams;
+
 @end

@@ -9,21 +9,12 @@
 #import "CVXSolver.h"
 #import "solver.h"
 
-typedef struct {
-    double *Q;
-    double *b;
-    double imageHeight;
-    double imageWidth;
-    double targetHeight;
-    double targetWidth;
-} CvxParams;
+Vars vars;
+Params params;
+Workspace work;
+Settings settings;
 
 @interface CVXSolver ()
-//
-@property (nonatomic) Vars vars;
-@property (nonatomic) Params params;
-@property (nonatomic) Workspace work;
-@property (nonatomic) Settings settings;
 
 @end
 
@@ -33,21 +24,23 @@ typedef struct {
 #define DEFAULT_NUMBER_OF_GRID_COLS 25
 #define DEFAULT_GRID_SIZE (DEFAULT_NUMBER_OF_GRID_ROWS + DEFAULT_NUMBER_OF_GRID_COLS)
 
-- (void)loadDataWithParams:(CvxParams)cvxParams {
-    params.imageHeight[0] = cvxParams.imageHeight;
-    params.imageWidth[0] = cvxParams.imageWidth;
-    params.targetHeight[0] = cvxParams.targetHeight;
-    params.targetWidth[0] = cvxParams.targetWidth;
+- (void)loadDataWithParams:(CvxParams *)cvxParams
+{
+    params.imageHeight[0] = cvxParams->imageHeight;
+    params.imageWidth[0] = cvxParams->imageWidth;
+    params.targetHeight[0] = cvxParams->targetHeight;
+    params.targetWidth[0] = cvxParams->targetWidth;
     
     for (int i = 0; i < DEFAULT_GRID_SIZE; ++i)
-        params.b[i] = cvxParams.b[i];
+        params.b[i] = cvxParams->b[i];
     
     for (int i = 0; i < DEFAULT_GRID_SIZE; ++i)
         for (int j = 0; j < DEFAULT_GRID_SIZE; ++j)
-            params.Q[i*DEFAULT_GRID_SIZE + j] = cvxParams.Q[i*DEFAULT_GRID_SIZE + j];
+            params.Q[i*DEFAULT_GRID_SIZE + j] = cvxParams->Q[i*DEFAULT_GRID_SIZE + j];
 }
 
-- (NSArray *)solveWithCvxParams:(CvxParams)cvxParams {
+- (NSArray *)solveWithCvxParams:(CvxParams *)cvxParams
+{
     set_defaults();
     setup_indexing();
     [self loadDataWithParams:cvxParams];

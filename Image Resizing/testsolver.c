@@ -12,7 +12,7 @@ Params params;
 Workspace work;
 Settings settings;
 #define NUMTESTS 0
-int main(int argc, char **argv) {
+int not_main(int argc, char **argv) {
   int num_iters;
 #if (NUMTESTS > 0)
   int i;

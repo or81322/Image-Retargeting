@@ -9,6 +9,7 @@
 #import "Algorithm.h"
 #import "GPUImageSobelEdgeDetectionSaliencyFilter.h"
 #import "UIImage+Scale.h"
+#import "CVXSolver.h"
 
 //
 // Prefix header for all source files using opencv
@@ -172,10 +173,44 @@ using namespace std;
     Mat Q = K.t() * K;
     Mat b = Mat::zeros(self.numberOfGridRows + self.numberOfGridCols, 1, CV_64F);// needed?
     
-    // TODO
+    CvxParams *cvxParams = (CvxParams *)malloc(sizeof(CvxParams));
+    if (cvxParams == NULL) {
+        printf("Cannot malloc memory for struct\n");
+		exit(1);  // End program, returning error status.
+    }
+    cvxParams->Q = [self flatArrayFromMat:Q];
+    cvxParams->b = [self flatArrayFromMat:b];
+    cvxParams->imageHeight = self.imageHeight;
+    cvxParams->imageWidth = self.imageWidth;
+    cvxParams->targetHeight = self.targetImageHeight;
+    cvxParams->targetWidth = self.targetImageWidth;
+    
+    NSArray *sol = [[[CVXSolver alloc] init] solveWithCvxParams:cvxParams];
+    
+    free(cvxParams->Q);
+    free(cvxParams->b);
+    free(cvxParams);
     
     return [self UIImageFromCVMat:saliencyMap];
 
+}
+
+- (double *)flatArrayFromMat:(Mat)mat
+{
+    int cols = mat.cols;
+    int rows = mat.rows;
+    
+    double *flat_mat = (double *)malloc(sizeof(double) * rows * cols);
+    if (flat_mat == NULL) {
+        printf("Cannot malloc memory for array\n");
+		exit(1);  // End program, returning error status.
+    }
+    
+    for (int j = 0; j < cols; ++j)
+        for (int i = 0; i < rows; ++i)
+            flat_mat[i + j * cols] = mat.at<double>(i, j);
+    
+    return flat_mat;
 }
 
 -(Mat)cvMatFromUIImage:(UIImage *)image
