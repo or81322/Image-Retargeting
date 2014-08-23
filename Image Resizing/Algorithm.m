@@ -60,10 +60,25 @@ using namespace std;
 
 #pragma mark - init
 
+-(CGSize)currentScreenSize
+{
+    return [self sizeInOrientation:[UIApplication sharedApplication].statusBarOrientation];
+}
+
+-(CGSize)sizeInOrientation:(UIInterfaceOrientation)orientation
+{
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    if (UIInterfaceOrientationIsLandscape(orientation))
+    {
+        size = CGSizeMake(size.height, size.width);
+    }
+    return size;
+}
+
 -(id)init {
     // default device size in pixels
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    CGSize targetImageSize = CGSizeMake(screenBounds.size.width * SCALE , screenBounds.size.height * SCALE);
+    CGSize screenSize = [self currentScreenSize];
+    CGSize targetImageSize = CGSizeMake(screenSize.width * SCALE , screenSize.height * SCALE);
     
     // default grid size
     CGSize gridSize = CGSizeMake(DEFAULT_NUMBER_OF_GRID_ROWS , DEFAULT_NUMBER_OF_GRID_COLS);
@@ -145,8 +160,8 @@ using namespace std;
     // ASAP Energy
     Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
     
-    int rowHeight = self.imageHeight / self.numberOfGridRows;
-    int colWidth = self.imageWidth / self.numberOfGridCols;
+    double rowHeight = (double) self.imageHeight / self.numberOfGridRows;
+    double colWidth = (double) self.imageWidth / self.numberOfGridCols;
     
     for (int k = 0 ; k < K.size.p[0] ; k++) {
         int r = k / self.numberOfGridCols ;// floor
@@ -213,34 +228,33 @@ using namespace std;
     
     for (int j = 0; j < self.numberOfGridCols; ++j) {
         startCol = floor(j * colWidth);
-        endCol = ceil((j + 1) * colWidth);
+        endCol = ceil((j + 1) * colWidth) - 1;
         
-        if (j == 1) {
-            resize(img.colRange(startCol, endCol), q, cv::Size([sColsRounded[j] integerValue], img.rows));
+        if (j == 0) {
+            resize(img.colRange(startCol, endCol), q, cv::Size([sColsRounded[j] intValue], img.rows));
             continue;
         }
         Mat tmp;
-        resize(img.colRange(startCol, endCol), tmp, cv::Size([sColsRounded[j] integerValue], img.rows));
-        //vconcat(q, tmp, q);
+        resize(img.colRange(startCol, endCol), tmp, cv::Size([sColsRounded[j] intValue], img.rows));
+        hconcat(q, tmp, q);
     }
     Mat deformatedImage;
     int startRow, endRow;
     
     for (int i = 0; i < self.numberOfGridRows; ++i) {
         startRow = floor(i * rowHeight);
-        endRow = ceil((i + 1) * rowHeight);
+        endRow = ceil((i + 1) * rowHeight) - 1;
         
-        if (i == 1) {
-            resize(q.rowRange(startRow, endRow), deformatedImage, cv::Size(q.cols, [sRowsRounded[i] integerValue]));
+        if (i == 0) {
+            resize(q.rowRange(startRow, endRow), deformatedImage, cv::Size(q.cols, [sRowsRounded[i] intValue]));
             continue;
         }
         Mat tmp;
-        resize(q.rowRange(startRow, endRow), tmp, cv::Size(q.cols, [sRowsRounded[i] integerValue]));
-        //hconcat(deformatedImage, tmp, deformatedImage);
+        resize(q.rowRange(startRow, endRow), tmp, cv::Size(q.cols, [sRowsRounded[i] intValue]));
+        vconcat(deformatedImage, tmp, deformatedImage);
     }
     
-    return [self UIImageFromCVMat:saliencyMap];
-
+    return [self UIImageFromCVMat:deformatedImage];
 }
 
 - (double *)flatArrayFromMat:(Mat)mat

@@ -40,4 +40,10 @@
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBar.isHidden animated:YES];
 }
 
+/*
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    // TODO
+}
+ */
+
 @end
