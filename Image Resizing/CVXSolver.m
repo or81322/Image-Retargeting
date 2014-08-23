@@ -19,9 +19,8 @@ Settings settings;
 @end
 
 @implementation CVXSolver
-
-#define DEFAULT_NUMBER_OF_GRID_ROWS 25
-#define DEFAULT_NUMBER_OF_GRID_COLS 25
+const int DEFAULT_NUMBER_OF_GRID_ROWS = 25;
+const int DEFAULT_NUMBER_OF_GRID_COLS = 25;
 #define DEFAULT_GRID_SIZE (DEFAULT_NUMBER_OF_GRID_ROWS + DEFAULT_NUMBER_OF_GRID_COLS)
 
 + (void)loadDataWithParams:(CvxParams *)cvxParams

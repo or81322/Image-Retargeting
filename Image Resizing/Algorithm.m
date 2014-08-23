@@ -51,9 +51,6 @@ using namespace std;
 
 #pragma mark - Constants
 
-#define DEFAULT_NUMBER_OF_GRID_ROWS 25
-#define DEFAULT_NUMBER_OF_GRID_COLS 25
-
 #define DEFAULT_PERCENTAGE 0.2
 
 #define SCALE [[UIScreen mainScreen] scale]
@@ -80,22 +77,19 @@ using namespace std;
     CGSize screenSize = [self currentScreenSize];
     CGSize targetImageSize = CGSizeMake(screenSize.width * SCALE , screenSize.height * SCALE);
     
-    // default grid size
-    CGSize gridSize = CGSizeMake(DEFAULT_NUMBER_OF_GRID_ROWS , DEFAULT_NUMBER_OF_GRID_COLS);
-    
     //default percentage
     CGFloat percentage = DEFAULT_PERCENTAGE;
     
     //default saliency filter
     GPUImageSobelEdgeDetectionSaliencyFilter *saliencyFilter = [[GPUImageSobelEdgeDetectionSaliencyFilter alloc] init];
     
-    return [self initWithTargetImageSize:targetImageSize andGridSize:gridSize andPercentage:percentage usingSaliencyFilter:saliencyFilter];
+    return [self initWithTargetImageSize:targetImageSize andPercentage:percentage usingSaliencyFilter:saliencyFilter];
 }
 
--(id)initWithTargetImageSize:(CGSize)targetImageSize andGridSize:(CGSize)gridSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter{
+-(id)initWithTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter{
     if (self = [super init]) {
         _targetImageSize = targetImageSize;
-        _gridSize = gridSize;
+        _gridSize = CGSizeMake(DEFAULT_NUMBER_OF_GRID_ROWS , DEFAULT_NUMBER_OF_GRID_COLS);
         _percentage = percentage;
         _saliencyFilter = saliencyFilter;
     }
@@ -123,11 +117,11 @@ using namespace std;
 
 //
 -(NSUInteger)numberOfGridRows {
-    return self.gridSize.height;
+    return DEFAULT_NUMBER_OF_GRID_ROWS;
 }
 
 -(NSUInteger)numberOfGridCols {
-    return self.gridSize.width;
+    return DEFAULT_NUMBER_OF_GRID_COLS;
 }
 
 
@@ -151,11 +145,15 @@ using namespace std;
     return [self retargeting:image withSaliencyImage:[self.saliencyFilter getSaliencyImage:image]];
 }
 
+- (Mat)getSaliencyMap:(UIImage *)saliencyImage {
+    return [self cvMatFromUIImage:[saliencyImage scaleToSize:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols)]];
+}
+
 -(UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {
     self.image = image;
     
     // average saliency
-    Mat saliencyMap = [self cvMatFromUIImage:[saliencyImage scaleToSize:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols)]];
+    Mat saliencyMap = [self getSaliencyMap:saliencyImage];
     
     // ASAP Energy
     Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
@@ -193,6 +191,7 @@ using namespace std;
     Mat Q = K.t() * K;
     Mat b = Mat::zeros(self.numberOfGridRows + self.numberOfGridCols, 1, CV_64F);// needed?
     
+    // solve the QP problem
     CvxParams *cvxParams = (CvxParams *)malloc(sizeof(CvxParams));
     if (cvxParams == NULL) {
         printf("Cannot malloc memory for struct\n");
@@ -211,6 +210,7 @@ using namespace std;
     free(cvxParams->b);
     free(cvxParams);
     
+    // Image resizing and deformation
     NSArray *sRows = [s objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.numberOfGridRows)]];
     NSArray *sCols = [s objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.numberOfGridRows, self.numberOfGridCols)]];
     

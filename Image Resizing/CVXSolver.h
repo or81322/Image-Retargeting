@@ -21,4 +21,7 @@ typedef struct {
 
 + (NSArray *)solveWithCvxParams:(CvxParams *)cvxParams;
 
+extern const int DEFAULT_NUMBER_OF_GRID_ROWS;
+extern const int DEFAULT_NUMBER_OF_GRID_COLS;
+
 @end
