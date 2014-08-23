@@ -229,6 +229,9 @@ using namespace std;
     for (int j = 0; j < self.numberOfGridCols; ++j) {
         startCol = floor(j * colWidth);
         endCol = ceil((j + 1) * colWidth) - 1;
+        if (endCol == (j + 1) * colWidth  - 1) {
+            ++endCol;
+        }
         
         if (j == 0) {
             resize(img.colRange(startCol, endCol), q, cv::Size([sColsRounded[j] intValue], img.rows));
@@ -244,6 +247,9 @@ using namespace std;
     for (int i = 0; i < self.numberOfGridRows; ++i) {
         startRow = floor(i * rowHeight);
         endRow = ceil((i + 1) * rowHeight) - 1;
+        if (endRow == (i + 1) * rowHeight  - 1) {
+            ++endRow;
+        }
         
         if (i == 0) {
             resize(q.rowRange(startRow, endRow), deformatedImage, cv::Size(q.cols, [sRowsRounded[i] intValue]));
