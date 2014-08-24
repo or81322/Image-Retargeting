@@ -10,6 +10,7 @@
 #import "Algorithm.h"
 
 @interface ViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
@@ -18,14 +19,24 @@
 
 - (void)setImage:(UIImage *)image
 {
-    if (image)
-        self.imageView.image = image;
+    _image = image;
+    [self updateImageView];
+}
+
+- (void)updateImageView {
+    if (self.imageView) {
+        if (self.image) {
+            self.imageView.image = self.image;
+        }
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self updateImageView];
 }
 
 - (void)didReceiveMemoryWarning

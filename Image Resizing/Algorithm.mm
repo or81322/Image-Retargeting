@@ -11,17 +11,9 @@
 #import "UIImage+Scale.h"
 #import "CVXSolver.h"
 
-//
-// Prefix header for all source files using opencv
-//
-#ifdef __cplusplus
-#import <opencv2/opencv.hpp>
-#endif
-
 @interface Algorithm ()
 
 @property (nonatomic) CGSize targetImageSize;// size already scaled
-@property (nonatomic) CGSize gridSize;// size in positive integers
 @property (nonatomic) CGFloat percentage;// ?
 @property (nonatomic , strong) SaliencyFilter *saliencyFilter;
 
@@ -40,7 +32,7 @@
 @property (nonatomic , readonly) CGFloat minGridWidth;
 
 //
-@property (nonatomic , weak) UIImage *image;
+@property (nonatomic , strong) UIImage *image;
 
 @end
 
@@ -89,7 +81,6 @@ using namespace std;
 -(id)initWithTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter{
     if (self = [super init]) {
         _targetImageSize = targetImageSize;
-        _gridSize = CGSizeMake(DEFAULT_NUMBER_OF_GRID_ROWS , DEFAULT_NUMBER_OF_GRID_COLS);
         _percentage = percentage;
         _saliencyFilter = saliencyFilter;
     }

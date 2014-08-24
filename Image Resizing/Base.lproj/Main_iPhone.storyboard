@@ -98,7 +98,6 @@
                         </button>
                     </navigationItem>
                     <connections>
-                        <outlet property="image" destination="3iz-D1-DxO" id="4dr-QP-shI"/>
                         <outlet property="imageView" destination="3iz-D1-DxO" id="QOI-da-r0g"/>
                     </connections>
                 </viewController>

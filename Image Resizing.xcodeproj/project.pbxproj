@@ -23,7 +23,7 @@
 		44BCF312198D0C6100D4881B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2F1198D0C6100D4881B /* UIKit.framework */; };
 		44BCF31A198D0C6100D4881B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44BCF318198D0C6100D4881B /* InfoPlist.strings */; };
 		44BCF31C198D0C6100D4881B /* Image_ResizingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */; };
-		44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF32A198D0E4300D4881B /* Algorithm.m */; };
+		44BCF32B198D0E4300D4881B /* Algorithm.mm in Sources */ = {isa = PBXBuildFile; fileRef = 44BCF32A198D0E4300D4881B /* Algorithm.mm */; };
 		44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C8E79019A0282700D7A3AE /* UIImage+Scale.m */; };
 		44EA51C31996D804005E359B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44EA51C21996D804005E359B /* MainViewController.m */; };
 		44ED9DC41998244600A770BA /* SaliencyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ED9DC31998244600A770BA /* SaliencyFilter.m */; };
@@ -95,7 +95,7 @@
 		44BCF31B198D0C6100D4881B /* Image_ResizingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image_ResizingTests.m; sourceTree = "<group>"; };
 		44BCF327198D0E0400D4881B /* v1_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v1_0.m; sourceTree = "<group>"; };
 		44BCF329198D0E4300D4881B /* Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Algorithm.h; sourceTree = "<group>"; };
-		44BCF32A198D0E4300D4881B /* Algorithm.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Algorithm.m; sourceTree = "<group>"; };
+		44BCF32A198D0E4300D4881B /* Algorithm.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Algorithm.mm; sourceTree = "<group>"; };
 		44C8E78F19A0282700D7A3AE /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
 		44C8E79019A0282700D7A3AE /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		44EA51C11996D804005E359B /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				44BCF329198D0E4300D4881B /* Algorithm.h */,
-				44BCF32A198D0E4300D4881B /* Algorithm.m */,
+				44BCF32A198D0E4300D4881B /* Algorithm.mm */,
 				44ED9DC21998244500A770BA /* SaliencyFilter.h */,
 				44ED9DC31998244600A770BA /* SaliencyFilter.m */,
 				44ED9DC5199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.h */,
@@ -403,7 +403,7 @@
 			files = (
 				E9184CB919A122CB007F991D /* util.c in Sources */,
 				E9184CB819A122CB007F991D /* testsolver.c in Sources */,
-				44BCF32B198D0E4300D4881B /* Algorithm.m in Sources */,
+				44BCF32B198D0E4300D4881B /* Algorithm.mm in Sources */,
 				44ED9DC41998244600A770BA /* SaliencyFilter.m in Sources */,
 				44BCF307198D0C6100D4881B /* ViewController.m in Sources */,
 				44ED9DC7199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m in Sources */,

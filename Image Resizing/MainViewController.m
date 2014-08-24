@@ -53,7 +53,7 @@
 }
 
 -(UIPopoverController *)imagePickerPopover {
-    if (_imagePickerPopover == nil) {
+    if (_imagePickerPopover == nil && IDIOM == IPAD) {
         _imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
     }
     return _imagePickerPopover;
@@ -72,7 +72,7 @@
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([identifier isEqualToString:@"Show Image"] && IDIOM == IPAD) {
+    if ([identifier isEqualToString:@"Show Image"]) {
         return (!self.imagePickerPopover.popoverVisible) ? YES : NO;
     } else {
         return [super shouldPerformSegueWithIdentifier:identifier sender:sender];

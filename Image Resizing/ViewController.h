@@ -10,6 +10,6 @@
 
 @interface ViewController : UIViewController
 
-- (void)setImage:(UIImage *)image;
+@property (nonatomic , strong) UIImage *image;
 
 @end
