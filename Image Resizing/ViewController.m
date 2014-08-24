@@ -10,11 +10,17 @@
 #import "Algorithm.h"
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *image;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
 
 @implementation ViewController
+
+- (void)setImage:(UIImage *)image
+{
+    if (image)
+        self.imageView.image = image;
+}
 
 - (void)viewDidLoad
 {
@@ -32,7 +38,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
-    self.image.image = [([[Algorithm alloc] init]) autoRetargeting:self.image.image];
+    self.imageView.image = [([[Algorithm alloc] init]) autoRetargeting:self.imageView.image];
 }
 
 - (IBAction)userTouchedTheScreen:(id)sender {

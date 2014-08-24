@@ -72,7 +72,7 @@
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([identifier isEqualToString:@"Show Image"]) {
+    if ([identifier isEqualToString:@"Show Image"] && IDIOM == IPAD) {
         return (!self.imagePickerPopover.popoverVisible) ? YES : NO;
     } else {
         return [super shouldPerformSegueWithIdentifier:identifier sender:sender];

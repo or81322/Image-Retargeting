@@ -10,4 +10,6 @@
 
 @interface ViewController : UIViewController
 
+- (void)setImage:(UIImage *)image;
+
 @end

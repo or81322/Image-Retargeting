@@ -38,7 +38,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2Po-8x-Vht" kind="push" identifier="" id="zCR-4B-7lX"/>
+                                    <segue destination="2Po-8x-Vht" kind="push" identifier="Show Image" id="zCR-4B-7lX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1L-y8-JDl">
@@ -99,6 +99,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="image" destination="3iz-D1-DxO" id="4dr-QP-shI"/>
+                        <outlet property="imageView" destination="3iz-D1-DxO" id="QOI-da-r0g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ES4-Ye-k0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
