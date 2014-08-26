@@ -27,6 +27,7 @@
 //
 @property (nonatomic , readonly) NSUInteger numberOfGridRows;
 @property (nonatomic , readonly) NSUInteger numberOfGridCols;
+@property (nonatomic , readonly) int defaultGridSize;
 
 @property (nonatomic , readonly) CGFloat minGridHeight;
 @property (nonatomic , readonly) CGFloat minGridWidth;
@@ -115,6 +116,9 @@ using namespace std;
     return DEFAULT_NUMBER_OF_GRID_COLS;
 }
 
+-(int)defaultGridSize {
+    return (int) (self.numberOfGridRows + self.numberOfGridCols);
+}
 
 -(CGFloat)minGridHeight {
     return self.percentage * self.imageHeight / self.numberOfGridRows ;
@@ -142,12 +146,14 @@ using namespace std;
 
 -(UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {
     self.image = image;
+    //return saliencyImage;
     
     // average saliency
     Mat saliencyMap = [self getSaliencyMap:saliencyImage];
+    //return [self UIImageFromCVMat:saliencyMap];
     
     // ASAP Energy
-    Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
+    Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.defaultGridSize, CV_64F);
     
     double rowHeight = (double) self.imageHeight / self.numberOfGridRows;
     double colWidth = (double) self.imageWidth / self.numberOfGridCols;
@@ -180,7 +186,7 @@ using namespace std;
     }
     
     Mat Q = K.t() * K;
-    Mat b = Mat::zeros(self.numberOfGridRows + self.numberOfGridCols, 1, CV_64F);// needed?
+    Mat b = Mat::zeros(self.defaultGridSize, 1, CV_64F);// needed?
     
     // solve the QP problem
     CvxParams *cvxParams = (CvxParams *)malloc(sizeof(CvxParams));
@@ -251,7 +257,8 @@ using namespace std;
         vconcat(deformatedImage, tmp, deformatedImage);
     }
     
-    return [self UIImageFromCVMat:deformatedImage];
+    UIImage *output = [self UIImageFromCVMat:deformatedImage];
+    return output;
 }
 
 - (double *)flatArrayFromMat:(Mat)mat
@@ -347,7 +354,7 @@ using namespace std;
     
     
     // Getting UIImage from CGImage
-    UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
+    UIImage *finalImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:self.image.imageOrientation];
     CGImageRelease(imageRef);
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);
