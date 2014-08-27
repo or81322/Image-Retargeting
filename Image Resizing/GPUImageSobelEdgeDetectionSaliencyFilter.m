@@ -28,8 +28,7 @@
     
     [stillImageSource processImage];
     
-    //return [dilationFilter imageFromCurrentFramebuffer];
-    return [dilationFilter imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
+    return [dilationFilter imageFromCurrentFramebuffer];
 }
 
 

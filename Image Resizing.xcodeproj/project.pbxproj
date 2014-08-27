@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		44A60A721990ED45004A90CF /* Desert.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 44A60A711990ED45004A90CF /* Desert.jpg */; };
+		44ADFBE019AE28CF00B6AD6C /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */; };
 		44BCF2EE198D0C6100D4881B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2ED198D0C6100D4881B /* Foundation.framework */; };
 		44BCF2F0198D0C6100D4881B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */; };
 		44BCF2F2198D0C6100D4881B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2F1198D0C6100D4881B /* UIKit.framework */; };
@@ -73,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		44A60A711990ED45004A90CF /* Desert.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Desert.jpg; sourceTree = "<group>"; };
+		44ADFBDE19AE28CF00B6AD6C /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
 		44BCF2EA198D0C6100D4881B /* Image Resizing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Image Resizing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44BCF2ED198D0C6100D4881B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -185,6 +188,8 @@
 				44BCF302198D0C6100D4881B /* Main_iPad.storyboard */,
 				44C8E78F19A0282700D7A3AE /* UIImage+Scale.h */,
 				44C8E79019A0282700D7A3AE /* UIImage+Scale.m */,
+				44ADFBDE19AE28CF00B6AD6C /* UIImage+FixOrientation.h */,
+				44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */,
 				44BCF325198D0D4600D4881B /* View Controllers */,
 				44BCF308198D0C6100D4881B /* Images.xcassets */,
 				44BCF326198D0D5400D4881B /* Model */,
@@ -414,6 +419,7 @@
 				E9184CB519A122CB007F991D /* ldl.c in Sources */,
 				44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */,
 				E9184CB619A122CB007F991D /* matrix_support.c in Sources */,
+				44ADFBE019AE28CF00B6AD6C /* UIImage+FixOrientation.m in Sources */,
 				44BCF2FA198D0C6100D4881B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

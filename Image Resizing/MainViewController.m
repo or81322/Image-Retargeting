@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "UIImage+FixOrientation.h"
 
 @interface MainViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
@@ -48,6 +49,7 @@
         _imagePickerController = [[UIImagePickerController alloc] init];
         _imagePickerController.delegate = self;
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        //_imagePickerController.allowsEditing = YES;
     }
     return _imagePickerController;
 }
@@ -99,7 +101,7 @@
     
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     if (image) {
-        self.image = image;
+        self.image = [image fixOrientation];
     } else {
         // error
     }
