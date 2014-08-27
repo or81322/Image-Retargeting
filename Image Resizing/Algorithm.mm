@@ -27,7 +27,6 @@
 //
 @property (nonatomic , readonly) NSUInteger numberOfGridRows;
 @property (nonatomic , readonly) NSUInteger numberOfGridCols;
-@property (nonatomic , readonly) int defaultGridSize;
 
 @property (nonatomic , readonly) CGFloat minGridHeight;
 @property (nonatomic , readonly) CGFloat minGridWidth;
@@ -44,7 +43,7 @@ using namespace std;
 
 #pragma mark - Constants
 
-#define DEFAULT_PERCENTAGE 0.2
+#define DEFAULT_PERCENTAGE 0.2f
 
 #define SCALE [[UIScreen mainScreen] scale]
 
@@ -57,6 +56,7 @@ using namespace std;
 
 -(CGSize)sizeInOrientation:(UIInterfaceOrientation)orientation
 {
+    //return CGSizeMake(512, 512);
     CGSize size = [UIScreen mainScreen].bounds.size;
     if (UIInterfaceOrientationIsLandscape(orientation))
     {
@@ -116,9 +116,6 @@ using namespace std;
     return DEFAULT_NUMBER_OF_GRID_COLS;
 }
 
--(int)defaultGridSize {
-    return (int) (self.numberOfGridRows + self.numberOfGridCols);
-}
 
 -(CGFloat)minGridHeight {
     return self.percentage * self.imageHeight / self.numberOfGridRows ;
@@ -153,7 +150,7 @@ using namespace std;
     //return [self UIImageFromCVMat:saliencyMap];
     
     // ASAP Energy
-    Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.defaultGridSize, CV_64F);
+    Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
     
     double rowHeight = (double) self.imageHeight / self.numberOfGridRows;
     double colWidth = (double) self.imageWidth / self.numberOfGridCols;
@@ -186,7 +183,7 @@ using namespace std;
     }
     
     Mat Q = K.t() * K;
-    Mat b = Mat::zeros(self.defaultGridSize, 1, CV_64F);// needed?
+    Mat b = Mat::zeros(self.numberOfGridRows + self.numberOfGridCols, 1, CV_64F);// needed?
     
     // solve the QP problem
     CvxParams *cvxParams = (CvxParams *)malloc(sizeof(CvxParams));
@@ -207,22 +204,27 @@ using namespace std;
     free(cvxParams->b);
     free(cvxParams);
     
+    saliencyMap.release();
+    K.release();
+    Q.release();
+    b.release();
+    
     // Image resizing and deformation
     NSArray *sRows = [s objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.numberOfGridRows)]];
     NSArray *sCols = [s objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.numberOfGridRows, self.numberOfGridCols)]];
     
     NSMutableArray *sRowsRounded = [[NSMutableArray alloc] initWithCapacity:[sRows count]];
     NSMutableArray *sColsRounded = [[NSMutableArray alloc] initWithCapacity:[sCols count]];
-    
     for (int i = 0; i < [sRows count]; ++i)
         sRowsRounded[i] = [NSNumber numberWithDouble:round([(NSNumber *)sRows[i] doubleValue])];
     for (int j = 0; j < [sCols count]; ++j)
         sColsRounded[j] = [NSNumber numberWithDouble:round([(NSNumber *)sCols[j] doubleValue])];
     
-    Mat q;
     Mat img = [self cvMatFromUIImage:self.image];
-    int startCol, endCol;
+    //return [self UIImageFromCVMat:img];
     
+    Mat q;
+    int startCol, endCol;
     for (int j = 0; j < self.numberOfGridCols; ++j) {
         startCol = floor(j * colWidth);
         endCol = ceil((j + 1) * colWidth) - 1;
@@ -238,9 +240,12 @@ using namespace std;
         resize(img.colRange(startCol, endCol), tmp, cv::Size([sColsRounded[j] intValue], img.rows));
         hconcat(q, tmp, q);
     }
+    
+    img.release();
+    //return [self UIImageFromCVMat:q];
+    
     Mat deformatedImage;
     int startRow, endRow;
-    
     for (int i = 0; i < self.numberOfGridRows; ++i) {
         startRow = floor(i * rowHeight);
         endRow = ceil((i + 1) * rowHeight) - 1;
@@ -257,7 +262,13 @@ using namespace std;
         vconcat(deformatedImage, tmp, deformatedImage);
     }
     
+    q.release();
+    
     UIImage *output = [self UIImageFromCVMat:deformatedImage];
+    output = [UIImage imageWithCGImage:output.CGImage scale:1.0 orientation:self.image.imageOrientation];
+
+    deformatedImage.release();
+    
     return output;
 }
 
@@ -284,6 +295,13 @@ using namespace std;
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
     CGFloat cols = image.size.width;
     CGFloat rows = image.size.height;
+    
+    // this problem occures on photos taken by ios devices in portrait mode
+    if  (image.imageOrientation == UIImageOrientationLeft
+         || image.imageOrientation == UIImageOrientationRight) {
+        cols = image.size.height;
+        rows = image.size.width;
+    }
     
     Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels (color channels + alpha)
     
@@ -352,9 +370,8 @@ using namespace std;
                                         kCGRenderingIntentDefault                   //intent
                                         );
     
-    
     // Getting UIImage from CGImage
-    UIImage *finalImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:self.image.imageOrientation];
+    UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);
