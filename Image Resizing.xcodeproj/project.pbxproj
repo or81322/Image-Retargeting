@@ -11,6 +11,7 @@
 		44ADFBE019AE28CF00B6AD6C /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */; };
 		44ADFBE519AF3FDB00B6AD6C /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBE219AF3FDB00B6AD6C /* UIImage+Alpha.m */; };
 		44ADFBE619AF3FDB00B6AD6C /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBE419AF3FDB00B6AD6C /* UIImage+Resize.m */; };
+		44ADFBEA19AF423900B6AD6C /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBE919AF423900B6AD6C /* UIImage+RoundedCorner.m */; };
 		44BCF2EE198D0C6100D4881B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2ED198D0C6100D4881B /* Foundation.framework */; };
 		44BCF2F0198D0C6100D4881B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */; };
 		44BCF2F2198D0C6100D4881B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2F1198D0C6100D4881B /* UIKit.framework */; };
@@ -82,6 +83,8 @@
 		44ADFBE219AF3FDB00B6AD6C /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		44ADFBE319AF3FDB00B6AD6C /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		44ADFBE419AF3FDB00B6AD6C /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		44ADFBE819AF423900B6AD6C /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		44ADFBE919AF423900B6AD6C /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		44BCF2EA198D0C6100D4881B /* Image Resizing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Image Resizing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44BCF2ED198D0C6100D4881B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -160,6 +163,8 @@
 				44ADFBE219AF3FDB00B6AD6C /* UIImage+Alpha.m */,
 				44ADFBE319AF3FDB00B6AD6C /* UIImage+Resize.h */,
 				44ADFBE419AF3FDB00B6AD6C /* UIImage+Resize.m */,
+				44ADFBE819AF423900B6AD6C /* UIImage+RoundedCorner.h */,
+				44ADFBE919AF423900B6AD6C /* UIImage+RoundedCorner.m */,
 				44C8E78F19A0282700D7A3AE /* UIImage+Scale.h */,
 				44C8E79019A0282700D7A3AE /* UIImage+Scale.m */,
 				44ADFBDE19AE28CF00B6AD6C /* UIImage+FixOrientation.h */,
@@ -434,6 +439,7 @@
 				44EA51C31996D804005E359B /* MainViewController.m in Sources */,
 				E9184CBF19A12303007F991D /* CVXSolver.m in Sources */,
 				E9184CB719A122CB007F991D /* solver.c in Sources */,
+				44ADFBEA19AF423900B6AD6C /* UIImage+RoundedCorner.m in Sources */,
 				E9184CB519A122CB007F991D /* ldl.c in Sources */,
 				44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */,
 				44ADFBE519AF3FDB00B6AD6C /* UIImage+Alpha.m in Sources */,
