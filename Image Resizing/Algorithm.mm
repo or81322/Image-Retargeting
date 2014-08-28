@@ -139,6 +139,13 @@ using namespace std;
 
 - (Mat)getSaliencyMap:(UIImage *)saliencyImage {
     return [self cvMatFromUIImage:[saliencyImage scaleToSize:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols)]];
+    
+    /*
+    cv::Size size(self.numberOfGridRows, self.numberOfGridCols);
+    Mat saliencyMap;
+    resize([self cvMatFromUIImage:saliencyImage], saliencyMap, size);
+    return saliencyMap;
+     */
 }
 
 -(UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {

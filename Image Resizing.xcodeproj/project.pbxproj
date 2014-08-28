@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		44A60A721990ED45004A90CF /* Desert.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 44A60A711990ED45004A90CF /* Desert.jpg */; };
 		44ADFBE019AE28CF00B6AD6C /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */; };
+		44ADFBE519AF3FDB00B6AD6C /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBE219AF3FDB00B6AD6C /* UIImage+Alpha.m */; };
+		44ADFBE619AF3FDB00B6AD6C /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBE419AF3FDB00B6AD6C /* UIImage+Resize.m */; };
 		44BCF2EE198D0C6100D4881B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2ED198D0C6100D4881B /* Foundation.framework */; };
 		44BCF2F0198D0C6100D4881B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */; };
 		44BCF2F2198D0C6100D4881B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BCF2F1198D0C6100D4881B /* UIKit.framework */; };
@@ -76,6 +78,10 @@
 		44A60A711990ED45004A90CF /* Desert.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Desert.jpg; sourceTree = "<group>"; };
 		44ADFBDE19AE28CF00B6AD6C /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
 		44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		44ADFBE119AF3FDB00B6AD6C /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		44ADFBE219AF3FDB00B6AD6C /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		44ADFBE319AF3FDB00B6AD6C /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		44ADFBE419AF3FDB00B6AD6C /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		44BCF2EA198D0C6100D4881B /* Image Resizing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Image Resizing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44BCF2ED198D0C6100D4881B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44BCF2EF198D0C6100D4881B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -147,14 +153,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44ADFBE719AF3FF600B6AD6C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				44ADFBE119AF3FDB00B6AD6C /* UIImage+Alpha.h */,
+				44ADFBE219AF3FDB00B6AD6C /* UIImage+Alpha.m */,
+				44ADFBE319AF3FDB00B6AD6C /* UIImage+Resize.h */,
+				44ADFBE419AF3FDB00B6AD6C /* UIImage+Resize.m */,
+				44C8E78F19A0282700D7A3AE /* UIImage+Scale.h */,
+				44C8E79019A0282700D7A3AE /* UIImage+Scale.m */,
+				44ADFBDE19AE28CF00B6AD6C /* UIImage+FixOrientation.h */,
+				44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		44BCF2E1198D0C6100D4881B = {
 			isa = PBXGroup;
 			children = (
 				44EDA27E1999039900A770BA /* GPUImage.xcodeproj */,
 				44BCF2F3198D0C6100D4881B /* Image Resizing */,
-				44BCF315198D0C6100D4881B /* Image ResizingTests */,
 				44BCF2EC198D0C6100D4881B /* Frameworks */,
 				44BCF2EB198D0C6100D4881B /* Products */,
+				44BCF315198D0C6100D4881B /* Image ResizingTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,12 +207,9 @@
 				44BCF2FD198D0C6100D4881B /* AppDelegate.m */,
 				44BCF2FF198D0C6100D4881B /* Main_iPhone.storyboard */,
 				44BCF302198D0C6100D4881B /* Main_iPad.storyboard */,
-				44C8E78F19A0282700D7A3AE /* UIImage+Scale.h */,
-				44C8E79019A0282700D7A3AE /* UIImage+Scale.m */,
-				44ADFBDE19AE28CF00B6AD6C /* UIImage+FixOrientation.h */,
-				44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */,
-				44BCF325198D0D4600D4881B /* View Controllers */,
 				44BCF308198D0C6100D4881B /* Images.xcassets */,
+				44BCF325198D0D4600D4881B /* View Controllers */,
+				44ADFBE719AF3FF600B6AD6C /* Categories */,
 				44BCF326198D0D5400D4881B /* Model */,
 				44BCF2F4198D0C6100D4881B /* Supporting Files */,
 			);
@@ -201,7 +219,6 @@
 		44BCF2F4198D0C6100D4881B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E9184CBC19A122D4007F991D /* cvxgen */,
 				44A60A711990ED45004A90CF /* Desert.jpg */,
 				44BCF327198D0E0400D4881B /* v1_0.m */,
 				44BCF2F5198D0C6100D4881B /* Image Resizing-Info.plist */,
@@ -252,6 +269,7 @@
 				44ED9DC6199828FD00A770BA /* GPUImageSobelEdgeDetectionSaliencyFilter.m */,
 				E9184CBD19A12303007F991D /* CVXSolver.h */,
 				E9184CBE19A12303007F991D /* CVXSolver.m */,
+				E9184CBC19A122D4007F991D /* cvxgen */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -418,8 +436,10 @@
 				E9184CB719A122CB007F991D /* solver.c in Sources */,
 				E9184CB519A122CB007F991D /* ldl.c in Sources */,
 				44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */,
+				44ADFBE519AF3FDB00B6AD6C /* UIImage+Alpha.m in Sources */,
 				E9184CB619A122CB007F991D /* matrix_support.c in Sources */,
 				44ADFBE019AE28CF00B6AD6C /* UIImage+FixOrientation.m in Sources */,
+				44ADFBE619AF3FDB00B6AD6C /* UIImage+Resize.m in Sources */,
 				44BCF2FA198D0C6100D4881B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
