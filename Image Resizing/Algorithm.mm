@@ -10,6 +10,7 @@
 #import "GPUImageSobelEdgeDetectionSaliencyFilter.h"
 #import "UIImage+Scale.h"
 #import "CVXSolver.h"
+#import "UIImage+Resize.h"
 
 @interface Algorithm ()
 
@@ -140,6 +141,8 @@ using namespace std;
 - (Mat)getSaliencyMap:(UIImage *)saliencyImage {
     return [self cvMatFromUIImage:[saliencyImage scaleToSize:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols)]];
     
+    //return [self cvMatFromUIImage:[saliencyImage resizedImage:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols) interpolationQuality:kCGInterpolationNone]];
+    
     /*
     cv::Size size(self.numberOfGridRows, self.numberOfGridCols);
     Mat saliencyMap;
@@ -154,7 +157,7 @@ using namespace std;
     
     // average saliency
     Mat saliencyMap = [self getSaliencyMap:saliencyImage];
-    //return [self UIImageFromCVMat:saliencyMap];
+    return [self UIImageFromCVMat:saliencyMap];
     
     // ASAP Energy
     Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);

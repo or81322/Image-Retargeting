@@ -31,7 +31,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7P0-Uz-LIL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7P0-Uz-LIL">
                                 <rect key="frame" x="118" y="269" width="84" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Open Image">
@@ -41,8 +41,8 @@
                                     <segue destination="2Po-8x-Vht" kind="push" identifier="Show Image" id="zCR-4B-7lX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1L-y8-JDl">
-                                <rect key="frame" x="118" y="175" width="84" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1L-y8-JDl">
+                                <rect key="frame" x="118" y="219" width="84" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Pick Image">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,6 +53,14 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="W1L-y8-JDl" secondAttribute="centerX" id="C11-5x-zPB"/>
+                            <constraint firstAttribute="centerY" secondItem="7P0-Uz-LIL" secondAttribute="centerY" id="RsN-8d-ppr"/>
+                            <constraint firstAttribute="centerX" secondItem="7P0-Uz-LIL" secondAttribute="centerX" id="dhb-e8-omH"/>
+                            <constraint firstItem="7P0-Uz-LIL" firstAttribute="height" secondItem="W1L-y8-JDl" secondAttribute="height" id="e3Y-sv-ixb"/>
+                            <constraint firstItem="7P0-Uz-LIL" firstAttribute="width" secondItem="W1L-y8-JDl" secondAttribute="width" id="kiW-k8-sgy"/>
+                            <constraint firstItem="7P0-Uz-LIL" firstAttribute="top" secondItem="W1L-y8-JDl" secondAttribute="bottom" constant="20" id="wew-dB-4RT"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ErC-hh-iil"/>
                 </viewController>
@@ -72,7 +80,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Desert.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3iz-D1-DxO">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Desert.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3iz-D1-DxO">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
@@ -80,6 +88,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="height" secondItem="3iz-D1-DxO" secondAttribute="height" id="HAi-g7-ByU"/>
+                            <constraint firstAttribute="width" secondItem="3iz-D1-DxO" secondAttribute="width" id="L5t-Bk-FgN"/>
+                            <constraint firstItem="3iz-D1-DxO" firstAttribute="leading" secondItem="LP0-hz-aZC" secondAttribute="leading" id="YrV-tu-8vh"/>
+                            <constraint firstAttribute="trailing" secondItem="3iz-D1-DxO" secondAttribute="trailing" id="oyv-cc-LDR"/>
+                            <constraint firstAttribute="centerY" secondItem="3iz-D1-DxO" secondAttribute="centerY" id="u0h-yw-lxn"/>
+                            <constraint firstAttribute="centerX" secondItem="3iz-D1-DxO" secondAttribute="centerX" id="yVb-k7-Pwy"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="2Sb-B7-F1B" appends="YES" id="1t7-Vl-Lqo"/>
                         </connections>
