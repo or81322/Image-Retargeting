@@ -157,7 +157,7 @@ using namespace std;
     
     // average saliency
     Mat saliencyMap = [self getSaliencyMap:saliencyImage];
-    return [self UIImageFromCVMat:saliencyMap];
+    //return [self UIImageFromCVMat:saliencyMap];
     
     // ASAP Energy
     Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
