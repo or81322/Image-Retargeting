@@ -16,11 +16,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N4v-VF-p7h">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N4v-VF-p7h">
                                 <rect key="frame" x="0.0" y="0.0" width="1073" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Item" id="HUj-UR-632"/>
+                                    <barButtonItem title="Retarget Image" id="HUj-UR-632">
+                                        <connections>
+                                            <action selector="startAutomaticRetargeting:" destination="BYZ-38-t0r" id="1A9-xK-K9F"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="jjA-gL-Hlb"/>
                                     <barButtonItem style="plain" systemItem="camera" id="PTV-yC-bNW">
                                         <connections>
@@ -29,15 +33,33 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Desert.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Int-pF-gCw">
+                                <rect key="frame" x="132" y="306" width="504" height="412"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="N4v-VF-p7h" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="F6f-JN-NSM"/>
+                            <constraint firstAttribute="centerX" secondItem="N4v-VF-p7h" secondAttribute="centerX" id="Onz-7L-j4L"/>
+                            <constraint firstItem="Int-pF-gCw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aV8-ri-knS"/>
+                            <constraint firstItem="N4v-VF-p7h" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cZA-tL-ETr"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Int-pF-gCw" secondAttribute="bottom" constant="306" id="i4J-Az-oEE"/>
+                            <constraint firstItem="Int-pF-gCw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="o7T-bI-sTs"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="Int-pF-gCw" id="XlR-wW-Mrg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="81" y="27"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Desert.jpg" width="1024" height="768"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

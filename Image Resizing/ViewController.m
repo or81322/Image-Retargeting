@@ -46,6 +46,8 @@
 }
 
 - (IBAction)startAutomaticRetargeting:(id)sender {
+    if (!self.imageView.image)
+        return;
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
