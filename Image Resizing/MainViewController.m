@@ -86,9 +86,10 @@
 - (IBAction)pickImage:(id)sender {
     //UIButton *button = (UIButton *)sender;
     if (IDIOM == IPAD) {
+        //[self.imagePickerPopover presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
         UIBarButtonItem *button = (UIBarButtonItem *)sender;
         [self.imagePickerPopover presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        //[self.imagePickerPopover presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     } else {
         [self presentViewController:self.imagePickerController animated:YES completion:nil];
     }

@@ -16,8 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N4v-VF-p7h">
-                                <rect key="frame" x="0.0" y="0.0" width="1073" height="44"/>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Desert.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Int-pF-gCw">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="6K4-01-jgw" appends="YES" id="0qI-Xj-0rR"/>
+                                </connections>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4v-VF-p7h">
+                                <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem title="Retarget Image" id="HUj-UR-632">
@@ -33,18 +41,16 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Desert.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Int-pF-gCw">
-                                <rect key="frame" x="132" y="306" width="504" height="412"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="N4v-VF-p7h" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="F6f-JN-NSM"/>
-                            <constraint firstAttribute="centerX" secondItem="N4v-VF-p7h" secondAttribute="centerX" id="Onz-7L-j4L"/>
+                            <constraint firstAttribute="width" secondItem="N4v-VF-p7h" secondAttribute="width" id="0Fs-k5-v3i"/>
+                            <constraint firstItem="Int-pF-gCw" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1d1-Xf-aY1"/>
+                            <constraint firstItem="Int-pF-gCw" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="Hzi-48-mFZ"/>
+                            <constraint firstAttribute="centerX" secondItem="N4v-VF-p7h" secondAttribute="centerX" id="LC1-39-70H"/>
                             <constraint firstItem="Int-pF-gCw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aV8-ri-knS"/>
-                            <constraint firstItem="N4v-VF-p7h" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cZA-tL-ETr"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Int-pF-gCw" secondAttribute="bottom" constant="306" id="i4J-Az-oEE"/>
+                            <constraint firstItem="N4v-VF-p7h" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="lSI-Qg-N3L"/>
                             <constraint firstItem="Int-pF-gCw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="o7T-bI-sTs"/>
                         </constraints>
                     </view>
@@ -53,6 +59,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="6K4-01-jgw">
+                    <connections>
+                        <action selector="userTouchedTheScreen:" destination="BYZ-38-t0r" id="P1C-82-5bK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="81" y="27"/>
         </scene>
