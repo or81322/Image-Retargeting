@@ -151,9 +151,10 @@ using namespace std;
      */
 }
 
--(UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {
+- (UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {
     self.image = image;
     //return saliencyImage;
+    return [self maskImage:image withMask:saliencyImage];
     
     // average saliency
     Mat saliencyMap = [self getSaliencyMap:saliencyImage];
@@ -357,6 +358,30 @@ using namespace std;
     CGColorSpaceRelease(colorSpace);
     
     return finalImage;
+}
+
+- (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)mask
+{
+    CGImageRef imageReference = image.CGImage;
+    CGImageRef maskReference = mask.CGImage;
+    
+    CGImageRef imageMask = CGImageMaskCreate(CGImageGetWidth(maskReference),
+                                             CGImageGetHeight(maskReference),
+                                             CGImageGetBitsPerComponent(maskReference),
+                                             CGImageGetBitsPerPixel(maskReference),
+                                             CGImageGetBytesPerRow(maskReference),
+                                             CGImageGetDataProvider(maskReference),
+                                             NULL, // Decode is null
+                                             YES // Should interpolate
+                                             );
+    
+    CGImageRef maskedReference = CGImageCreateWithMask(imageReference, imageMask);
+    CGImageRelease(imageMask);
+    
+    UIImage *maskedImage = [UIImage imageWithCGImage:maskedReference];
+    CGImageRelease(maskedReference);
+    
+    return maskedImage;
 }
 
 @end
