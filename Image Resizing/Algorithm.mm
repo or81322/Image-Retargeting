@@ -365,6 +365,7 @@ using namespace std;
 {
     CGImageRef imageReference = image.CGImage;
     UIImage *maskWithAlpha = [mask imageByApplyingAlpha:0.6];
+    
     CGImageRef maskReference = maskWithAlpha.CGImage;
     
     CGImageRef imageMask = CGImageMaskCreate(CGImageGetWidth(maskReference),
