@@ -11,6 +11,7 @@
 #import "UIImage+Scale.h"
 #import "CVXSolver.h"
 #import "UIImage+Resize.h"
+#import "UIImage+Alpha.h"
 
 @interface Algorithm ()
 
@@ -363,7 +364,8 @@ using namespace std;
 - (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)mask
 {
     CGImageRef imageReference = image.CGImage;
-    CGImageRef maskReference = mask.CGImage;
+    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:0.6];
+    CGImageRef maskReference = maskWithAlpha.CGImage;
     
     CGImageRef imageMask = CGImageMaskCreate(CGImageGetWidth(maskReference),
                                              CGImageGetHeight(maskReference),
