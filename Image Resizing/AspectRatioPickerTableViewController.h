@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AspectRatioPickerDelegate
+- (void)didFinishChoosingAspectRatio:(id)sender;
+- (void)setAspectRatio:(double)aspectRatio;
+@end
+
+@protocol AspectRatioPickerDataSource
+- (double)sourceAspectRatio;
+@end
+
 @interface AspectRatioPickerTableViewController : UITableViewController
+@property (nonatomic, weak) id <AspectRatioPickerDelegate> delegate;
+@property (nonatomic, weak) id <AspectRatioPickerDataSource> dataSource;
+
+- (id)initWithStyle:(UITableViewStyle)style andDataSource:(id)dataSource andDelegate:(id)delegate;
 
 @end

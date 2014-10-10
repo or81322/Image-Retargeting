@@ -8,12 +8,15 @@
 
 #import "MainViewController.h"
 #import "UIImage+FixOrientation.h"
+#import "AspectRatioPickerTableViewController.h"
 
-@interface MainViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface MainViewController () < UINavigationControllerDelegate , UIImagePickerControllerDelegate , AspectRatioPickerDataSource , AspectRatioPickerDelegate >
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
-@property (strong, nonatomic) UITableViewController *aspectRatioPickerController;
+
+@property (strong, nonatomic) AspectRatioPickerTableViewController *aspectRatioPickerController;
 @property (strong, nonatomic) UIPopoverController *aspectRatioPickerPopover;
+
 @property (strong, nonatomic) UIImage *image;
 @end
 
@@ -65,8 +68,7 @@
 
 -(UITableViewController *)aspectRatioPickerController {
     if (_aspectRatioPickerController == nil) {
-        _aspectRatioPickerController = [[UITableViewController alloc] init];
-        //_aspectRatioPickerController.delegate = self;
+        _aspectRatioPickerController = [[AspectRatioPickerTableViewController alloc] initWithStyle:UITableViewStyleGrouped andDataSource:self andDelegate:self];
     }
     return _aspectRatioPickerController;
 }
@@ -115,14 +117,11 @@
 
 - (IBAction)aspectRatioMenu:(id)sender {
     if (IDIOM == IPAD) {
-        //[self.imagePickerPopover presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        
         UIBarButtonItem *button = (UIBarButtonItem *)sender;
         [self.aspectRatioPickerPopover presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     } else {
         [self presentViewController:self.aspectRatioPickerController animated:YES completion:nil];
     }
-
 }
 
 #pragma mark - UIImagePickerController
@@ -148,6 +147,29 @@
     [self dismissImagePickerController];
     
     // TODO
+}
+
+#pragma mark - AspectRatioPickerDelegate
+
+-(void)didFinishChoosingAspectRatio:(id)sender {
+    [self.aspectRatioPickerController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)setAspectRatio:(double)aspectRatio {
+    // assert that it is within 1/10 to 10/1 of the original ratio
+    #define RESIZE_FACTOR 10
+    double targetAspectRatio = aspectRatio;
+    targetAspectRatio = MIN(targetAspectRatio, RESIZE_FACTOR * self.sourceAspectRatio);
+    targetAspectRatio = MAX(targetAspectRatio, 1.0 / RESIZE_FACTOR * self.sourceAspectRatio);
+    
+    // TODO
+
+}
+
+#pragma mark - AspectRatioPickerDataSource
+
+-(double)sourceAspectRatio {
+    return self.image.size.width / self.image.size.height;
 }
 
 #pragma mark - private methods
