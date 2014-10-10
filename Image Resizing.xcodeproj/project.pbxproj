@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		441EBC2519E6B5B800664BA3 /* ratio.png in Resources */ = {isa = PBXBuildFile; fileRef = 441EBC2319E6B5B800664BA3 /* ratio.png */; };
+		441EBC2619E6B5B800664BA3 /* ratio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 441EBC2419E6B5B800664BA3 /* ratio@2x.png */; };
+		441EBC2919E6BAFE00664BA3 /* AspectRatioPickerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 441EBC2819E6BAFE00664BA3 /* AspectRatioPickerTableViewController.m */; };
 		44A60A721990ED45004A90CF /* Desert.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 44A60A711990ED45004A90CF /* Desert.jpg */; };
 		44ADFBE019AE28CF00B6AD6C /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */; };
 		44ADFBE519AF3FDB00B6AD6C /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 44ADFBE219AF3FDB00B6AD6C /* UIImage+Alpha.m */; };
@@ -76,6 +79,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		441EBC2319E6B5B800664BA3 /* ratio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratio.png; sourceTree = "<group>"; };
+		441EBC2419E6B5B800664BA3 /* ratio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ratio@2x.png"; sourceTree = "<group>"; };
+		441EBC2719E6BAFE00664BA3 /* AspectRatioPickerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AspectRatioPickerTableViewController.h; sourceTree = "<group>"; };
+		441EBC2819E6BAFE00664BA3 /* AspectRatioPickerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AspectRatioPickerTableViewController.m; sourceTree = "<group>"; };
 		44A60A711990ED45004A90CF /* Desert.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Desert.jpg; sourceTree = "<group>"; };
 		44ADFBDE19AE28CF00B6AD6C /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
 		44ADFBDF19AE28CF00B6AD6C /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
@@ -156,6 +163,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		441EBC2019E6B59200664BA3 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				441EBC2319E6B5B800664BA3 /* ratio.png */,
+				441EBC2419E6B5B800664BA3 /* ratio@2x.png */,
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
 		44ADFBE719AF3FF600B6AD6C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +240,7 @@
 		44BCF2F4198D0C6100D4881B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				441EBC2019E6B59200664BA3 /* icons */,
 				44A60A711990ED45004A90CF /* Desert.jpg */,
 				44BCF327198D0E0400D4881B /* v1_0.m */,
 				44BCF2F5198D0C6100D4881B /* Image Resizing-Info.plist */,
@@ -259,6 +276,8 @@
 				44BCF306198D0C6100D4881B /* ViewController.m */,
 				44EA51C11996D804005E359B /* MainViewController.h */,
 				44EA51C21996D804005E359B /* MainViewController.m */,
+				441EBC2719E6BAFE00664BA3 /* AspectRatioPickerTableViewController.h */,
+				441EBC2819E6BAFE00664BA3 /* AspectRatioPickerTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -405,7 +424,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				441EBC2619E6B5B800664BA3 /* ratio@2x.png in Resources */,
 				44BCF304198D0C6100D4881B /* Main_iPad.storyboard in Resources */,
+				441EBC2519E6B5B800664BA3 /* ratio.png in Resources */,
 				E9184CB419A122CB007F991D /* description.cvxgen in Resources */,
 				44A60A721990ED45004A90CF /* Desert.jpg in Resources */,
 				44BCF309198D0C6100D4881B /* Images.xcassets in Resources */,
@@ -441,6 +462,7 @@
 				E9184CB719A122CB007F991D /* solver.c in Sources */,
 				44ADFBEA19AF423900B6AD6C /* UIImage+RoundedCorner.m in Sources */,
 				E9184CB519A122CB007F991D /* ldl.c in Sources */,
+				441EBC2919E6BAFE00664BA3 /* AspectRatioPickerTableViewController.m in Sources */,
 				44C8E79119A0282700D7A3AE /* UIImage+Scale.m in Sources */,
 				44ADFBE519AF3FDB00B6AD6C /* UIImage+Alpha.m in Sources */,
 				E9184CB619A122CB007F991D /* matrix_support.c in Sources */,

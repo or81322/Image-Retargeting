@@ -12,6 +12,8 @@
 @interface MainViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
+@property (strong, nonatomic) UITableViewController *aspectRatioPickerController;
+@property (strong, nonatomic) UIPopoverController *aspectRatioPickerPopover;
 @property (strong, nonatomic) UIImage *image;
 @end
 
@@ -61,6 +63,22 @@
     return _imagePickerPopover;
 }
 
+-(UITableViewController *)aspectRatioPickerController {
+    if (_aspectRatioPickerController == nil) {
+        _aspectRatioPickerController = [[UITableViewController alloc] init];
+        //_aspectRatioPickerController.delegate = self;
+    }
+    return _aspectRatioPickerController;
+}
+
+-(UIPopoverController *)aspectRatioPickerPopover {
+    if (_aspectRatioPickerPopover == nil && IDIOM == IPAD) {
+        _aspectRatioPickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.aspectRatioPickerController];
+    }
+    return _aspectRatioPickerPopover;
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -93,6 +111,18 @@
     } else {
         [self presentViewController:self.imagePickerController animated:YES completion:nil];
     }
+}
+
+- (IBAction)aspectRatioMenu:(id)sender {
+    if (IDIOM == IPAD) {
+        //[self.imagePickerPopover presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+        UIBarButtonItem *button = (UIBarButtonItem *)sender;
+        [self.aspectRatioPickerPopover presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else {
+        [self presentViewController:self.aspectRatioPickerController animated:YES completion:nil];
+    }
+
 }
 
 #pragma mark - UIImagePickerController
