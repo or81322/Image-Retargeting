@@ -44,6 +44,7 @@
                                             <action selector="aspectRatioMenu:" destination="BYZ-38-t0r" id="zud-nb-lXR"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem width="168" style="plain" systemItem="fixedSpace" id="zmK-n2-yuk"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -60,7 +61,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="Int-pF-gCw" id="XlR-wW-Mrg"/>
+                        <outlet property="imageView" destination="Int-pF-gCw" id="J1D-Mc-MtW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

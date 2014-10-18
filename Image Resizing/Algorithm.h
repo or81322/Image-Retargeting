@@ -12,6 +12,7 @@
 @interface Algorithm : NSObject
 
 - (id)initWithTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter;
+- (id)initWithTargetImageSize:(CGSize)targetImageSize;
 
 //
 

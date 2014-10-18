@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @protocol AspectRatioPickerDelegate
-- (void)didFinishChoosingAspectRatio:(id)sender;
 - (void)setAspectRatio:(double)aspectRatio;
+- (void)didFinishChoosingAspectRatio:(id)sender;
 @end
 
 @protocol AspectRatioPickerDataSource

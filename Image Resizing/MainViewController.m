@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "UIImage+FixOrientation.h"
 #import "AspectRatioPickerTableViewController.h"
+#import "Algorithm.h"
 
 @interface MainViewController () < UINavigationControllerDelegate , UIImagePickerControllerDelegate , AspectRatioPickerDataSource , AspectRatioPickerDelegate >
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) AspectRatioPickerTableViewController *aspectRatioPickerController;
 @property (strong, nonatomic) UIPopoverController *aspectRatioPickerPopover;
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImage *image;
 @end
 
@@ -45,6 +47,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)updateImageViewWithImage:(UIImage *)image{
+    if (self.imageView) {
+        if (image) {
+            self.imageView.image = image;
+        }
+    }
 }
 
 #pragma mark - Properties
@@ -79,7 +89,6 @@
     }
     return _aspectRatioPickerPopover;
 }
-
 
 #pragma mark - Navigation
 
@@ -151,19 +160,38 @@
 
 #pragma mark - AspectRatioPickerDelegate
 
--(void)didFinishChoosingAspectRatio:(id)sender {
-    [self.aspectRatioPickerController dismissViewControllerAnimated:YES completion:nil];
-}
-
 -(void)setAspectRatio:(double)aspectRatio {
-    // assert that it is within 1/10 to 10/1 of the original ratio
-    #define RESIZE_FACTOR 10
-    double targetAspectRatio = aspectRatio;
-    targetAspectRatio = MIN(targetAspectRatio, RESIZE_FACTOR * self.sourceAspectRatio);
-    targetAspectRatio = MAX(targetAspectRatio, 1.0 / RESIZE_FACTOR * self.sourceAspectRatio);
+    if (self.image) {
+        
+        // assert that it is within 1/10 to 10/1 of the original ratio
+        #define RESIZE_FACTOR 10
+        double targetAspectRatio = aspectRatio;
+        targetAspectRatio = MIN(targetAspectRatio, RESIZE_FACTOR * self.sourceAspectRatio);
+        targetAspectRatio = MAX(targetAspectRatio, 1.0 / RESIZE_FACTOR * self.sourceAspectRatio);
+        
+        // calculate targetImageSize
+        CGFloat targetimageWidth = self.image.size.width , targetImageHeight = self.image.size.height;
+        double aspectRatioFactor = targetAspectRatio / self.sourceAspectRatio;
+        if (aspectRatioFactor > 1) {
+            targetimageWidth *= aspectRatioFactor;
+        } else {
+            targetImageHeight /= aspectRatioFactor;
+        }
+        
+        CGSize targetImageSize = CGSizeMake(targetimageWidth, targetImageHeight);
+        
+        // should support retargeting with saliency image
+        UIImage *modifiedImage = [[[Algorithm alloc] initWithTargetImageSize:targetImageSize] autoRetargeting:self.image];
+        [self updateImageViewWithImage:modifiedImage];
+    }
     
     // TODO
+    // run the algorithm on different thread
+    // maybe should keep the aspect ratio selection
+}
 
+-(void)didFinishChoosingAspectRatio:(id)sender {
+    [self.aspectRatioPickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - AspectRatioPickerDataSource

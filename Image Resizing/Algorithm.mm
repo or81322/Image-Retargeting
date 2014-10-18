@@ -90,6 +90,16 @@ using namespace std;
     return self;
 }
 
+-(id)initWithTargetImageSize:(CGSize)targetImageSize{
+    //default percentage
+    CGFloat percentage = DEFAULT_PERCENTAGE;
+    
+    //default saliency filter
+    GPUImageSobelEdgeDetectionSaliencyFilter *saliencyFilter = [[GPUImageSobelEdgeDetectionSaliencyFilter alloc] init];
+    
+    return [self initWithTargetImageSize:targetImageSize andPercentage:percentage usingSaliencyFilter:saliencyFilter];
+}
+
 # pragma mark - Properties
 
 -(NSUInteger)targetImageHeight {
@@ -155,7 +165,6 @@ using namespace std;
 - (UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {
     self.image = image;
     //return saliencyImage;
-    return [self maskImage:image withMask:saliencyImage];
     
     // average saliency
     Mat saliencyMap = [self getSaliencyMap:saliencyImage];
