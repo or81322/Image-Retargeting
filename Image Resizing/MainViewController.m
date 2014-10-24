@@ -41,6 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.image = self.imageView.image;
 }
 
 - (void)didReceiveMemoryWarning
