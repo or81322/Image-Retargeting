@@ -20,6 +20,8 @@
 
 //
 
+- (UIImage *)saliencyFromImage:(UIImage *)image;
+
 - (UIImage *)autoRetargeting:(UIImage *)image;
 
 - (UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage;

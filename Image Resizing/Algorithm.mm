@@ -35,6 +35,7 @@
 
 //
 @property (nonatomic , strong) UIImage *image;
+@property (nonatomic, readwrite) UIImage *saliencyImage;
 
 @end
 
@@ -144,6 +145,11 @@ using namespace std;
 }
 
 #pragma mark - algorithm
+
+- (UIImage *)saliencyFromImage:(UIImage *)image
+{
+    return [self.saliencyFilter getSaliencyImage:image];
+}
 
 -(UIImage *)autoRetargeting:(UIImage *)image {
     return [self retargeting:image withSaliencyImage:[self.saliencyFilter getSaliencyImage:image]];

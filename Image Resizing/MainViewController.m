@@ -10,6 +10,8 @@
 #import "UIImage+FixOrientation.h"
 #import "AspectRatioPickerTableViewController.h"
 #import "Algorithm.h"
+#import "UIImage+Alpha.h"
+
 
 @interface MainViewController () < UINavigationControllerDelegate , UIImagePickerControllerDelegate , AspectRatioPickerDataSource , AspectRatioPickerDelegate >
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
@@ -20,6 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImage *image;
+
+@property (nonatomic) BOOL isShowingSaliency;
 @end
 
 @implementation MainViewController
@@ -210,5 +214,46 @@
         [self.imagePickerController dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
+#pragma mark - saliency related
+
+- (IBAction)toggleSaliency:(id)sender {
+    
+    if (self.isShowingSaliency)
+        [self updateImageViewWithImage:self.image];
+    else {
+        UIImage *saliencyImage = [[[Algorithm alloc] init] saliencyFromImage:self.image];
+        UIImage *maskedIMage = [self maskImage:self.image withMask:saliencyImage];
+        [self updateImageViewWithImage:maskedIMage];
+    }
+    self.isShowingSaliency = !self.isShowingSaliency;
+}
+
+- (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)mask
+{
+    CGImageRef imageReference = image.CGImage;
+    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:0.6];
+    
+    CGImageRef maskReference = maskWithAlpha.CGImage;
+    
+    CGImageRef imageMask = CGImageMaskCreate(CGImageGetWidth(maskReference),
+                                             CGImageGetHeight(maskReference),
+                                             CGImageGetBitsPerComponent(maskReference),
+                                             CGImageGetBitsPerPixel(maskReference),
+                                             CGImageGetBytesPerRow(maskReference),
+                                             CGImageGetDataProvider(maskReference),
+                                             NULL, // Decode is null
+                                             YES // Should interpolate
+                                             );
+    
+    CGImageRef maskedReference = CGImageCreateWithMask(imageReference, imageMask);
+    CGImageRelease(imageMask);
+    
+    UIImage *maskedImage = [UIImage imageWithCGImage:maskedReference];
+    CGImageRelease(maskedReference);
+    
+    return maskedImage;
+}
+
 
 @end
