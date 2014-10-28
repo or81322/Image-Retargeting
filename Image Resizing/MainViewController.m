@@ -264,7 +264,7 @@
 - (UIImage *)maskImage2:(UIImage *)image withMask:(UIImage *)mask
 {
     CGImageRef imageReference = image.CGImage;
-    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:0.8];
+    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:1];
     
     CGImageRef maskReference = maskWithAlpha.CGImage;
     
