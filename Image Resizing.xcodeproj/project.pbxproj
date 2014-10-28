@@ -45,9 +45,11 @@
 		E9184CBF19A12303007F991D /* CVXSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = E9184CBE19A12303007F991D /* CVXSolver.m */; };
 		E965840E19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
 		E965840F19903B5800317181 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E965840D19903B5800317181 /* opencv2.framework */; };
-		E98148FA19FB284200733C81 /* 1-ipad-air-wallpaper-minimal-simple_20@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E98148F919FB284200733C81 /* 1-ipad-air-wallpaper-minimal-simple_20@2x.jpg */; };
+		E98148FA19FB284200733C81 /* w3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E98148F919FB284200733C81 /* w3@2x.jpg */; };
 		E9B1C07F19FAE343002FAB35 /* wizard.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B1C07D19FAE343002FAB35 /* wizard.png */; };
 		E9B1C08019FAE343002FAB35 /* wizard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B1C07E19FAE343002FAB35 /* wizard@2x.png */; };
+		E9B2796F1A001733007691B3 /* w1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B2796E1A001733007691B3 /* w1@2x.jpg */; };
+		E9B279741A00193F007691B3 /* w2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B279731A00193F007691B3 /* w2@2x.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,9 +139,11 @@
 		E9184CBD19A12303007F991D /* CVXSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVXSolver.h; sourceTree = "<group>"; };
 		E9184CBE19A12303007F991D /* CVXSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVXSolver.m; sourceTree = "<group>"; };
 		E965840D19903B5800317181 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		E98148F919FB284200733C81 /* 1-ipad-air-wallpaper-minimal-simple_20@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1-ipad-air-wallpaper-minimal-simple_20@2x.jpg"; sourceTree = "<group>"; };
+		E98148F919FB284200733C81 /* w3@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w3@2x.jpg"; sourceTree = "<group>"; };
 		E9B1C07D19FAE343002FAB35 /* wizard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wizard.png; sourceTree = "<group>"; };
 		E9B1C07E19FAE343002FAB35 /* wizard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wizard@2x.png"; sourceTree = "<group>"; };
+		E9B2796E1A001733007691B3 /* w1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w1@2x.jpg"; sourceTree = "<group>"; };
+		E9B279731A00193F007691B3 /* w2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w2@2x.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,8 +254,8 @@
 			children = (
 				441EBC2019E6B59200664BA3 /* icons */,
 				44A60A711990ED45004A90CF /* Desert.jpg */,
+				E9B279721A00190F007691B3 /* wallpapers */,
 				44BCF327198D0E0400D4881B /* v1_0.m */,
-				E98148F919FB284200733C81 /* 1-ipad-air-wallpaper-minimal-simple_20@2x.jpg */,
 				44BCF2F5198D0C6100D4881B /* Image Resizing-Info.plist */,
 				44BCF2F6198D0C6100D4881B /* InfoPlist.strings */,
 				44BCF2F9198D0C6100D4881B /* main.m */,
@@ -328,6 +332,16 @@
 				E9184CB319A122CB007F991D /* util.c */,
 			);
 			name = cvxgen;
+			sourceTree = "<group>";
+		};
+		E9B279721A00190F007691B3 /* wallpapers */ = {
+			isa = PBXGroup;
+			children = (
+				E98148F919FB284200733C81 /* w3@2x.jpg */,
+				E9B279731A00193F007691B3 /* w2@2x.jpg */,
+				E9B2796E1A001733007691B3 /* w1@2x.jpg */,
+			);
+			name = wallpapers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,14 +447,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B279741A00193F007691B3 /* w2@2x.jpg in Resources */,
 				441EBC2619E6B5B800664BA3 /* ratio@2x.png in Resources */,
+				E9B2796F1A001733007691B3 /* w1@2x.jpg in Resources */,
 				44BCF304198D0C6100D4881B /* Main_iPad.storyboard in Resources */,
 				441EBC2519E6B5B800664BA3 /* ratio.png in Resources */,
 				E9184CB419A122CB007F991D /* description.cvxgen in Resources */,
 				44A60A721990ED45004A90CF /* Desert.jpg in Resources */,
 				44BCF309198D0C6100D4881B /* Images.xcassets in Resources */,
 				E9B1C07F19FAE343002FAB35 /* wizard.png in Resources */,
-				E98148FA19FB284200733C81 /* 1-ipad-air-wallpaper-minimal-simple_20@2x.jpg in Resources */,
+				E98148FA19FB284200733C81 /* w3@2x.jpg in Resources */,
 				44BCF301198D0C6100D4881B /* Main_iPhone.storyboard in Resources */,
 				44BCF2F8198D0C6100D4881B /* InfoPlist.strings in Resources */,
 				E9B1C08019FAE343002FAB35 /* wizard@2x.png in Resources */,

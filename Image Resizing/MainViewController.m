@@ -11,6 +11,7 @@
 #import "AspectRatioPickerTableViewController.h"
 #import "Algorithm.h"
 #import "UIImage+Alpha.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 @interface MainViewController () < UINavigationControllerDelegate , UIImagePickerControllerDelegate , AspectRatioPickerDataSource , AspectRatioPickerDelegate >
@@ -22,8 +23,12 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImage *image;
+@property (weak, nonatomic) IBOutlet UIImageView *saliencyImageView;
 
 @property (nonatomic) BOOL isShowingSaliency;
+
+@property (nonatomic) CGRect originalImageViewFrame;
+
 @end
 
 @implementation MainViewController
@@ -46,6 +51,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.image = self.imageView.image;
+    
+    self.originalImageViewFrame = self.imageView.frame;
+    [self.imageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+    [self.imageView.layer setBorderWidth: 6.0];
+    [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,6 +68,7 @@
     if (self.imageView) {
         if (image) {
             self.imageView.image = image;
+            [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
         }
     }
 }
@@ -148,6 +159,9 @@
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     if (image) {
         self.image = [image fixOrientation];
+        if (self.isShowingSaliency)
+            [self toggleSaliency];
+        [self updateImageViewWithImage:self.image];
     } else {
         // error
     }
@@ -188,6 +202,9 @@
         // should support retargeting with saliency image
         UIImage *modifiedImage = [[[Algorithm alloc] initWithTargetImageSize:targetImageSize] autoRetargeting:self.image];
         [self updateImageViewWithImage:modifiedImage];
+        
+        if (self.isShowingSaliency)
+            [self toggleSaliency];
     }
     
     // TODO
@@ -217,17 +234,60 @@
 
 #pragma mark - saliency related
 
-- (IBAction)toggleSaliency:(id)sender {
-    
-    if (self.isShowingSaliency)
-        [self updateImageViewWithImage:self.image];
+- (void)toggleSaliency {
+    if (self.isShowingSaliency) {
+        //[self updateImageViewWithImage:self.image];
+        self.saliencyImageView.image = nil;
+    }
     else {
         UIImage *saliencyImage = [[[Algorithm alloc] init] saliencyFromImage:self.image];
-        UIImage *maskedIMage = [self maskImage:self.image withMask:saliencyImage];
-        [self updateImageViewWithImage:maskedIMage];
+        UIImage *maskedImage = [self maskImage:saliencyImage withMask:self.image];
+        //[self updateImageViewWithImage:maskedImage];
+        
+        //saliencyImage = [self changeColorToTransparent:saliencyImage];
+        maskedImage = [self maskImage2:saliencyImage withMask:self.image];
+        
+        self.saliencyImageView.image = maskedImage;
+        [self updateImageViewWithImage:self.image];
+        //self.imageView.image = nil;
+        
     }
     self.isShowingSaliency = !self.isShowingSaliency;
 }
+
+- (IBAction)toggleSaliency:(id)sender {
+    [self toggleSaliency];
+}
+
+- (UIImage *)maskImage2:(UIImage *)image withMask:(UIImage *)mask
+{
+    CGImageRef imageReference = image.CGImage;
+    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:0.8];
+    
+    CGImageRef maskReference = maskWithAlpha.CGImage;
+    
+    CGImageRef imageMask = CGImageMaskCreate(CGImageGetWidth(maskReference),
+                                             CGImageGetHeight(maskReference),
+                                             CGImageGetBitsPerComponent(maskReference),
+                                             CGImageGetBitsPerPixel(maskReference),
+                                             CGImageGetBytesPerRow(maskReference),
+                                             CGImageGetDataProvider(maskReference),
+                                             NULL, // Decode is null
+                                             YES // Should interpolate
+                                             );
+    
+    UIImage *maskImage = [UIImage imageWithCGImage:imageMask];
+    CGImageRef maskedReference = CGImageCreateWithMask(imageReference, imageMask);
+    //CGImageRef maskedReference = CGImageCreateWithMask(imageReference, maskReference);
+    CGImageRelease(imageMask);
+    
+    UIImage *maskedImage = [UIImage imageWithCGImage:maskedReference];
+    CGImageRelease(maskedReference);
+    
+    return maskedImage;
+    //return maskImage;
+}
+
 
 - (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)mask
 {
@@ -246,13 +306,62 @@
                                              YES // Should interpolate
                                              );
     
+    UIImage *maskImage = [UIImage imageWithCGImage:imageMask];
     CGImageRef maskedReference = CGImageCreateWithMask(imageReference, imageMask);
     CGImageRelease(imageMask);
     
     UIImage *maskedImage = [UIImage imageWithCGImage:maskedReference];
     CGImageRelease(maskedReference);
     
-    return maskedImage;
+    //return maskedImage;
+    return maskImage;
+}
+
+-(UIImage *)changeColorToTransparent: (UIImage *)image{
+    CGImageRef rawImageRef = image.CGImage;
+    const CGFloat colorMasking[6] = { 0, 50, 0, 50, 0, 50 };
+    UIGraphicsBeginImageContext(image.size);
+    CGImageRef maskedImageRef =  CGImageCreateWithMaskingColors(rawImageRef, colorMasking);
+    {
+        CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0.0, image.size.height);
+        CGContextScaleCTM(UIGraphicsGetCurrentContext(), 1.0, -1.0);
+    }
+    
+    CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, image.size.width, image.size.height), maskedImageRef);
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    CGImageRelease(maskedImageRef);
+    UIGraphicsEndImageContext();
+    return result;
+}
+
+-(UIImage *)changeWhiteColorTransparent: (UIImage *)image
+{
+    CGImageRef rawImageRef=image.CGImage;
+    
+    const CGFloat colorMasking[6] = {0, 1, 0, 1, 0, 1};
+    
+    UIGraphicsBeginImageContext(image.size);
+    CGImageRef maskedImageRef = CGImageCreateWithMaskingColors(rawImageRef, colorMasking);
+    {
+        //if in iphone
+        CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0.0, image.size.height);
+        CGContextScaleCTM(UIGraphicsGetCurrentContext(), 1.0, -1.0);
+    }
+    
+    CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, image.size.width, image.size.height), maskedImageRef);
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    CGImageRelease(maskedImageRef);
+    UIGraphicsEndImageContext();
+    return result;
+}
+
+- (UIImage *)inverseColorToImage:(UIImage *)image
+{
+    CIImage *coreImage = [CIImage imageWithCGImage:image.CGImage];
+    CIFilter *filter = [CIFilter filterWithName:@"CIColorInvert"];
+    [filter setValue:coreImage forKey:kCIInputImageKey];
+    CIImage *result = [filter valueForKey:kCIOutputImageKey];
+    return [UIImage imageWithCIImage:result];
 }
 
 
