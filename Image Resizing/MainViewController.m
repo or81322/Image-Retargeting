@@ -27,8 +27,6 @@
 
 @property (nonatomic) BOOL isShowingSaliency;
 
-@property (nonatomic) CGRect originalImageViewFrame;
-
 @end
 
 @implementation MainViewController
@@ -54,10 +52,12 @@
     // TODO - remove later
     self.image = self.imageView.image;
     
-    self.originalImageViewFrame = self.imageView.frame;
     [self.imageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.imageView.layer setBorderWidth: 6.0];
     [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+    
+    //[self.saliencyImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+    //[self.saliencyImageView.layer setBorderWidth: 6.0];
 }
 
 - (void)didReceiveMemoryWarning
@@ -294,7 +294,7 @@
 - (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)mask
 {
     CGImageRef imageReference = image.CGImage;
-    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:0.6];
+    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:1];
     
     CGImageRef maskReference = maskWithAlpha.CGImage;
     
