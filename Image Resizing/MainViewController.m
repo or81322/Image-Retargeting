@@ -50,6 +50,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // TODO - remove later
     self.image = self.imageView.image;
     
     self.originalImageViewFrame = self.imageView.frame;
