@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) IBOutlet UIImageView *saliencyImageView;
+@property (strong, nonatomic) UIImage *saliencyImage;
+
 
 @property (nonatomic) BOOL isShowingSaliency;
 
@@ -163,7 +165,9 @@
         self.image = [image fixOrientation];
         if (self.isShowingSaliency)
             [self toggleSaliency];
+        
         [self updateImageViewWithImage:self.image];
+        self.saliencyImage = nil;
     } else {
         // error
     }
@@ -242,14 +246,19 @@
         self.saliencyImageView.image = nil;
     }
     else {
-        UIImage *saliencyImage = [[[Algorithm alloc] init] saliencyFromImage:self.image];
-        UIImage *maskedImage = [self maskImage:saliencyImage withMask:self.image];
-        //[self updateImageViewWithImage:maskedImage];
+        if (self.saliencyImage)
+            self.saliencyImageView.image = self.saliencyImage;
+        else {
+            UIImage *saliencyImage = [[[Algorithm alloc] init] saliencyFromImage:self.image];
+            UIImage *maskedImage = [self maskImage:saliencyImage withMask:self.image];
+            //[self updateImageViewWithImage:maskedImage];
         
-        //saliencyImage = [self changeColorToTransparent:saliencyImage];
-        maskedImage = [self maskImage2:saliencyImage withMask:self.image];
+            //saliencyImage = [self changeColorToTransparent:saliencyImage];
+            maskedImage = [self maskImage2:saliencyImage withMask:self.image];
         
-        self.saliencyImageView.image = maskedImage;
+            self.saliencyImageView.image = maskedImage;
+            self.saliencyImage = maskedImage;
+        }
         [self updateImageViewWithImage:self.image];
         //self.imageView.image = nil;
         
