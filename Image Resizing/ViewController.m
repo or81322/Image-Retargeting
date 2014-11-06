@@ -51,7 +51,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
-    self.imageView.image = [([[Algorithm alloc] init]) autoRetargeting:self.imageView.image];
+    self.imageView.image = [([[Algorithm alloc] initWithImage:self.imageView.image]) autoRetargeting];
 }
 
 - (IBAction)userTouchedTheScreen:(id)sender {
