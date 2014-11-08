@@ -50,6 +50,8 @@
 		E9B1C08019FAE343002FAB35 /* wizard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B1C07E19FAE343002FAB35 /* wizard@2x.png */; };
 		E9B2796F1A001733007691B3 /* w1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B2796E1A001733007691B3 /* w1@2x.jpg */; };
 		E9B279741A00193F007691B3 /* w2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B279731A00193F007691B3 /* w2@2x.jpg */; };
+		E9B279791A00637E007691B3 /* w5@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B279771A00637E007691B3 /* w5@2x.jpg */; };
+		E9B2797A1A00637E007691B3 /* w4@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B279781A00637E007691B3 /* w4@2x.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +146,8 @@
 		E9B1C07E19FAE343002FAB35 /* wizard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wizard@2x.png"; sourceTree = "<group>"; };
 		E9B2796E1A001733007691B3 /* w1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w1@2x.jpg"; sourceTree = "<group>"; };
 		E9B279731A00193F007691B3 /* w2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w2@2x.jpg"; sourceTree = "<group>"; };
+		E9B279771A00637E007691B3 /* w5@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w5@2x.jpg"; sourceTree = "<group>"; };
+		E9B279781A00637E007691B3 /* w4@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w4@2x.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +343,8 @@
 			children = (
 				E98148F919FB284200733C81 /* w3@2x.jpg */,
 				E9B279731A00193F007691B3 /* w2@2x.jpg */,
+				E9B279771A00637E007691B3 /* w5@2x.jpg */,
+				E9B279781A00637E007691B3 /* w4@2x.jpg */,
 				E9B2796E1A001733007691B3 /* w1@2x.jpg */,
 			);
 			name = wallpapers;
@@ -454,8 +460,10 @@
 				441EBC2519E6B5B800664BA3 /* ratio.png in Resources */,
 				E9184CB419A122CB007F991D /* description.cvxgen in Resources */,
 				44A60A721990ED45004A90CF /* Desert.jpg in Resources */,
+				E9B279791A00637E007691B3 /* w5@2x.jpg in Resources */,
 				44BCF309198D0C6100D4881B /* Images.xcassets in Resources */,
 				E9B1C07F19FAE343002FAB35 /* wizard.png in Resources */,
+				E9B2797A1A00637E007691B3 /* w4@2x.jpg in Resources */,
 				E98148FA19FB284200733C81 /* w3@2x.jpg in Resources */,
 				44BCF301198D0C6100D4881B /* Main_iPhone.storyboard in Resources */,
 				44BCF2F8198D0C6100D4881B /* InfoPlist.strings in Resources */,
