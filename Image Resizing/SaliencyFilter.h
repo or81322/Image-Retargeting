@@ -10,6 +10,6 @@
 
 @interface SaliencyFilter : NSObject
 
--(UIImage *)getSaliencyImage:(UIImage *)image;
+-(UIImage *)getSaliencyImageFromImage:(UIImage *)image;
 
 @end

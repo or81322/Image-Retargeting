@@ -11,10 +11,11 @@
 
 @implementation GPUImageSobelEdgeDetectionSaliencyFilter
 
--(UIImage *)getSaliencyImage:(UIImage *)image {
+-(UIImage *)getSaliencyImageFromImage:(UIImage *)image {
     //GPUImageOpeningFilter *dilationFilter                     = [[GPUImageOpeningFilter alloc] initWithRadius:4];
     //GPUImageClosingFilter *dilationFilter                     = [[GPUImageClosingFilter alloc] initWithRadius:4];
     //GPUImageErosionFilter *dilationFilter                     = [[GPUImageErosionFilter alloc] initWithRadius:4];
+    
     GPUImageDilationFilter *dilationFilter                     = [[GPUImageDilationFilter alloc] initWithRadius:3];
     
     GPUImageSobelEdgeDetectionFilter *sobelEdgeDetectionFilter = [[GPUImageSobelEdgeDetectionFilter alloc] init];

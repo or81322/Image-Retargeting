@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *saliencyImageView;
 @property (strong, nonatomic) UIImage *saliencyImage;
 
+@property (nonatomic , strong) Algorithm *algorithm;
 
 @property (nonatomic) BOOL isShowingSaliency;
 
@@ -54,6 +55,8 @@
     // TODO - remove later
     self.image = self.imageView.image;
     
+    self.algorithm = [[Algorithm alloc] initWithImage:self.image];
+    
     [self.imageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.imageView.layer setBorderWidth: 6.0];
     [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
@@ -78,6 +81,9 @@
 }
 
 #pragma mark - Properties
+
+@synthesize image = _image;
+@synthesize saliencyImage = _saliencyImage;
 
 -(UIImagePickerController *)imagePickerController {
     if (_imagePickerController == nil) {
@@ -108,6 +114,25 @@
         _aspectRatioPickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.aspectRatioPickerController];
     }
     return _aspectRatioPickerPopover;
+}
+
+-(Algorithm *)algorithm {
+    if (_algorithm == nil) {
+        _algorithm = [[Algorithm alloc] init];
+        _algorithm.image = self.image;
+        _algorithm.saliencyImage = self.saliencyImage;
+    }
+    return _algorithm;
+}
+
+-(void)setImage:(UIImage *)image {
+    self.algorithm.image = image;
+    _image = image;
+}
+
+-(void)setSaliencyImage:(UIImage *)saliencyImage {
+    self.algorithm.saliencyImage = saliencyImage;
+    _saliencyImage = saliencyImage;
 }
 
 #pragma mark - Navigation
@@ -203,10 +228,9 @@
             targetImageHeight /= aspectRatioFactor;
         }
         
-        CGSize targetImageSize = CGSizeMake(targetimageWidth, targetImageHeight);
+        self.algorithm.targetImageSize = CGSizeMake(targetimageWidth, targetImageHeight);
         
-        // should support retargeting with saliency image
-        UIImage *modifiedImage = [[[Algorithm alloc] initWithTargetImageSize:targetImageSize] autoRetargeting:self.image];
+        UIImage *modifiedImage = [self.algorithm autoRetargeting];
         [self updateImageViewWithImage:modifiedImage];
         
         if (self.isShowingSaliency)
@@ -249,15 +273,14 @@
         if (self.saliencyImage)
             self.saliencyImageView.image = self.saliencyImage;
         else {
-            UIImage *saliencyImage = [[[Algorithm alloc] init] saliencyFromImage:self.image];
-            UIImage *maskedImage = [self maskImage:saliencyImage withMask:self.image];
+            UIImage *maskedImage = [self maskImage:self.algorithm.saliencyImage withMask:self.image];
             //[self updateImageViewWithImage:maskedImage];
         
             //saliencyImage = [self changeColorToTransparent:saliencyImage];
-            maskedImage = [self maskImage2:saliencyImage withMask:self.image];
+            maskedImage = [self maskImage2:self.algorithm.saliencyImage withMask:self.image];
         
             self.saliencyImageView.image = maskedImage;
-            self.saliencyImage = maskedImage;
+            self.saliencyImage = maskedImage;// ?
         }
         [self updateImageViewWithImage:self.image];
         //self.imageView.image = nil;

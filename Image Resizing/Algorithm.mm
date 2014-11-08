@@ -15,8 +15,7 @@
 
 @interface Algorithm ()
 
-@property (nonatomic) CGSize targetImageSize;// size already scaled
-@property (nonatomic) CGFloat percentage;// ?
+//
 @property (nonatomic , strong) SaliencyFilter *saliencyFilter;
 
 //
@@ -33,13 +32,11 @@
 @property (nonatomic , readonly) CGFloat minGridHeight;
 @property (nonatomic , readonly) CGFloat minGridWidth;
 
-//
-@property (nonatomic , strong) UIImage *image;
-@property (nonatomic, readwrite) UIImage *saliencyImage;
-
 @end
 
 @implementation Algorithm
+
+@synthesize saliencyImage = _saliencyImage;
 
 using namespace cv;
 using namespace std;
@@ -59,7 +56,6 @@ using namespace std;
 
 -(CGSize)sizeInOrientation:(UIInterfaceOrientation)orientation
 {
-    //return CGSizeMake(512, 512);
     CGSize size = [UIScreen mainScreen].bounds.size;
     if (UIInterfaceOrientationIsLandscape(orientation))
     {
@@ -69,37 +65,50 @@ using namespace std;
 }
 
 -(id)init {
+    return [self initWithImage:nil];
+}
+
+- (id)initWithImage:(UIImage *)image{
     // default device size in pixels
     CGSize screenSize = [self currentScreenSize];
     CGSize targetImageSize = CGSizeMake(screenSize.width * SCALE , screenSize.height * SCALE);
     
     //default percentage
     CGFloat percentage = DEFAULT_PERCENTAGE;
+    //default percentage
     
-    //default saliency filter
-    GPUImageSobelEdgeDetectionSaliencyFilter *saliencyFilter = [[GPUImageSobelEdgeDetectionSaliencyFilter alloc] init];
-    
-    return [self initWithTargetImageSize:targetImageSize andPercentage:percentage usingSaliencyFilter:saliencyFilter];
+    return [self initWithImage:image andTargetImageSize:targetImageSize andPercentage:percentage];
 }
 
--(id)initWithTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter{
+- (id)initWithImage:(UIImage *)image andTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage{
+    return [self initWithImage:image andTargetImageSize:targetImageSize andPercentage:percentage andSaliencyImage:nil];
+}
+
+-(id)initWithImage:(UIImage *)image andTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage andSaliencyImage:(UIImage *)saliencyImage{
     if (self = [super init]) {
         _targetImageSize = targetImageSize;
         _percentage = percentage;
-        _saliencyFilter = saliencyFilter;
+        _image = image;
+        _saliencyImage = saliencyImage;
+        
+        //default saliency filter
+        _saliencyFilter = [[GPUImageSobelEdgeDetectionSaliencyFilter alloc] init];
     }
     return self;
 }
 
--(id)initWithTargetImageSize:(CGSize)targetImageSize{
-    //default percentage
-    CGFloat percentage = DEFAULT_PERCENTAGE;
-    
-    //default saliency filter
-    GPUImageSobelEdgeDetectionSaliencyFilter *saliencyFilter = [[GPUImageSobelEdgeDetectionSaliencyFilter alloc] init];
-    
-    return [self initWithTargetImageSize:targetImageSize andPercentage:percentage usingSaliencyFilter:saliencyFilter];
+/*
+-(id)initWithImage:(UIImage *)image andTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage andSaliencyImage:(UIImage *)saliencyImage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter{
+    if (self = [super init]) {
+        _targetImageSize = targetImageSize;
+        _percentage = percentage;
+        _saliencyFilter = saliencyFilter;
+        _image = image;
+        _saliencyImage = saliencyImage;
+    }
+    return self;
 }
+ */
 
 # pragma mark - Properties
 
@@ -138,6 +147,22 @@ using namespace std;
     return self.percentage * self.imageWidth / self.numberOfGridCols ;
 }
 
+-(UIImage *)saliencyImage {
+    if (_saliencyImage == nil) {
+        if (self.image) {
+            _saliencyImage = [self.saliencyFilter getSaliencyImageFromImage:self.image];
+        }
+    }
+    return _saliencyImage;
+}
+
+-(void)setSaliencyImage:(UIImage *)saliencyImage{
+    if (CGSizeEqualToSize(self.image.size, saliencyImage.size)) {
+        _saliencyImage = saliencyImage;
+    }
+    // need to make sure that the image and its saliency image are with the same size
+}
+
 #pragma mark - assertions
 
 -(BOOL)isCroppingNeeded {
@@ -146,35 +171,17 @@ using namespace std;
 
 #pragma mark - algorithm
 
-- (UIImage *)saliencyFromImage:(UIImage *)image
-{
-    return [self.saliencyFilter getSaliencyImage:image];
-}
-
--(UIImage *)autoRetargeting:(UIImage *)image {
-    return [self retargeting:image withSaliencyImage:[self.saliencyFilter getSaliencyImage:image]];
-}
-
-- (Mat)getSaliencyMap:(UIImage *)saliencyImage {
-    return [self cvMatFromUIImage:[saliencyImage scaleToSize:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols)]];
-    
-    //return [self cvMatFromUIImage:[saliencyImage resizedImage:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols) interpolationQuality:kCGInterpolationNone]];
-    
-    /*
-    cv::Size size(self.numberOfGridRows, self.numberOfGridCols);
-    Mat saliencyMap;
-    resize([self cvMatFromUIImage:saliencyImage], saliencyMap, size);
-    return saliencyMap;
-     */
+-(UIImage *)autoRetargeting{
+    return [self retargeting:self.image withSaliencyImage:self.saliencyImage];
 }
 
 - (UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage {
-    self.image = image;
-    //return saliencyImage;
+    if (self.image == nil) {
+        self.image = image;
+    }
     
     // average saliency
-    Mat saliencyMap = [self getSaliencyMap:saliencyImage];
-    //return [self UIImageFromCVMat:saliencyMap];
+    Mat saliencyMap = [self getSaliencyMapFromSaliencyImage:saliencyImage];
     
     // ASAP Energy
     Mat K = Mat(self.numberOfGridRows * self.numberOfGridCols, self.numberOfGridRows + self.numberOfGridCols, CV_64F);
@@ -269,7 +276,6 @@ using namespace std;
     }
     
     img.release();
-    //return [self UIImageFromCVMat:q];
     
     Mat deformatedImage;
     int startRow, endRow;
@@ -292,11 +298,25 @@ using namespace std;
     q.release();
     
     UIImage *output = [self UIImageFromCVMat:deformatedImage];
-    //output = [UIImage imageWithCGImage:output.CGImage scale:1.0 orientation:self.image.imageOrientation];
 
     deformatedImage.release();
     
     return output;
+}
+
+#pragma mark - private methods
+
+- (Mat)getSaliencyMapFromSaliencyImage:(UIImage *)saliencyImage {
+    return [self cvMatFromUIImage:[saliencyImage scaleToSize:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols)]];
+    
+    //return [self cvMatFromUIImage:[saliencyImage resizedImage:CGSizeMake(self.numberOfGridRows, self.numberOfGridCols) interpolationQuality:kCGInterpolationNone]];
+    
+    /*
+     cv::Size size(self.numberOfGridRows, self.numberOfGridCols);
+     Mat saliencyMap;
+     resize([self cvMatFromUIImage:saliencyImage], saliencyMap, size);
+     return saliencyMap;
+     */
 }
 
 - (double *)flatArrayFromMat:(Mat)mat
@@ -374,32 +394,6 @@ using namespace std;
     CGColorSpaceRelease(colorSpace);
     
     return finalImage;
-}
-
-- (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)mask
-{
-    CGImageRef imageReference = image.CGImage;
-    UIImage *maskWithAlpha = [mask imageByApplyingAlpha:0.6];
-    
-    CGImageRef maskReference = maskWithAlpha.CGImage;
-    
-    CGImageRef imageMask = CGImageMaskCreate(CGImageGetWidth(maskReference),
-                                             CGImageGetHeight(maskReference),
-                                             CGImageGetBitsPerComponent(maskReference),
-                                             CGImageGetBitsPerPixel(maskReference),
-                                             CGImageGetBytesPerRow(maskReference),
-                                             CGImageGetDataProvider(maskReference),
-                                             NULL, // Decode is null
-                                             YES // Should interpolate
-                                             );
-    
-    CGImageRef maskedReference = CGImageCreateWithMask(imageReference, imageMask);
-    CGImageRelease(imageMask);
-    
-    UIImage *maskedImage = [UIImage imageWithCGImage:maskedReference];
-    CGImageRelease(maskedReference);
-    
-    return maskedImage;
 }
 
 @end

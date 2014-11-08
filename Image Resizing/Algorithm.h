@@ -11,18 +11,29 @@
 
 @interface Algorithm : NSObject
 
-- (id)initWithTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage usingSaliencyFilter:(SaliencyFilter *)saliencyFilter;
-- (id)initWithTargetImageSize:(CGSize)targetImageSize;
+@property (nonatomic) CGSize targetImageSize;
+@property (nonatomic) CGFloat percentage;
+
+@property (nonatomic , weak) UIImage *image;
+@property (nonatomic , weak) UIImage *saliencyImage;
 
 //
 
-- (BOOL)isCroppingNeeded;
+- (id)initWithImage:(UIImage *)image;
+- (id)initWithImage:(UIImage *)image andTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage;
+- (id)initWithImage:(UIImage *)image andTargetImageSize:(CGSize)targetImageSize andPercentage:(CGFloat)percentage andSaliencyImage:(UIImage *)saliencyImage;// needed?
 
 //
 
-- (UIImage *)saliencyFromImage:(UIImage *)image;
+@property (readonly , getter=isCroppingNeeded) BOOL CroppingNeeded;
 
-- (UIImage *)autoRetargeting:(UIImage *)image;
+//
+
+// TODO update saliencyImage method
+
+//
+
+- (UIImage *)autoRetargeting;
 
 - (UIImage *)retargeting:(UIImage *)image withSaliencyImage:(UIImage *)saliencyImage;
 
