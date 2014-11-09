@@ -30,6 +30,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJl-yc-WGf">
                                 <rect key="frame" x="0.0" y="223" width="768" height="578"/>
                             </imageView>
+                            <imageView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Go5-xp-nrb"/>
+                            <imageView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UwN-cD-lC7">
+                                <rect key="frame" x="-4" y="223" width="777" height="578"/>
+                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4v-VF-p7h">
                                 <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                                 <items>
@@ -56,7 +60,13 @@
                                             <action selector="aspectRatioMenu:" destination="BYZ-38-t0r" id="zud-nb-lXR"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="168" style="plain" systemItem="fixedSpace" id="zmK-n2-yuk"/>
+                                    <barButtonItem width="57" style="plain" systemItem="fixedSpace" id="NyS-tq-ivq"/>
+                                    <barButtonItem systemItem="trash" id="Gkw-zT-2IB">
+                                        <connections>
+                                            <action selector="resetDrawing:" destination="BYZ-38-t0r" id="xKU-Ws-zOr"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="147" style="plain" systemItem="fixedSpace" id="zmK-n2-yuk"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -75,9 +85,12 @@
                             <constraint firstItem="Int-pF-gCw" firstAttribute="width" secondItem="jJl-yc-WGf" secondAttribute="width" id="pYI-oS-U6F"/>
                         </constraints>
                     </view>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="drawImageView" destination="Go5-xp-nrb" id="Nli-fL-8N1"/>
                         <outlet property="imageView" destination="Int-pF-gCw" id="J1D-Mc-MtW"/>
                         <outlet property="saliencyImageView" destination="jJl-yc-WGf" id="G2w-G1-7Xx"/>
+                        <outlet property="tempDrawImageView" destination="UwN-cD-lC7" id="340-Fx-2PB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

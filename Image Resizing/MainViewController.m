@@ -25,10 +25,27 @@
 @property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) IBOutlet UIImageView *saliencyImageView;
 @property (strong, nonatomic) UIImage *saliencyImage;
+@property (strong, nonatomic) UIImage *originalSaliency;
+
 
 @property (nonatomic , strong) Algorithm *algorithm;
 
 @property (nonatomic) BOOL isShowingSaliency;
+
+@property (strong, nonatomic) UIImage *saliencyDrawImage;
+@property (strong, nonatomic) UIImage *drawImage;
+@property (nonatomic) BOOL didDraw;
+
+@property (weak, nonatomic) IBOutlet UIImageView *drawImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *tempDrawImageView;
+
+@property (nonatomic) CGPoint lastPoint;
+@property (nonatomic) CGFloat red;
+@property (nonatomic) CGFloat green;
+@property (nonatomic) CGFloat blue;
+@property (nonatomic) CGFloat brush;
+@property (nonatomic) CGFloat opacity;
+@property (nonatomic) BOOL mouseSwiped;
 
 @end
 
@@ -49,18 +66,28 @@
 
 - (void)viewDidLoad
 {
+    self.red = 255.0/255.0;
+    self.green = 255.0/255.0;
+    self.blue = 255.0/255.0;
+    self.brush = 35.0;
+    self.opacity = 0.8;
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     // TODO - remove later
     self.image = self.imageView.image;
     
-    self.algorithm = [[Algorithm alloc] initWithImage:self.image];
+    //self.algorithm = [[Algorithm alloc] initWithImage:self.image];
+    self.originalSaliency = self.algorithm.saliencyImage;
     
     [self.imageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.imageView.layer setBorderWidth: 6.0];
     [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
-    
+    [self.drawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+    [self.tempDrawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+
+
     //[self.saliencyImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     //[self.saliencyImageView.layer setBorderWidth: 6.0];
 }
@@ -76,6 +103,8 @@
         if (image) {
             self.imageView.image = image;
             [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+            [self.drawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+            [self.tempDrawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
         }
     }
 }
@@ -120,9 +149,16 @@
     if (_algorithm == nil) {
         _algorithm = [[Algorithm alloc] init];
         _algorithm.image = self.image;
-        _algorithm.saliencyImage = self.saliencyImage;
+        //_algorithm.saliencyImage = self.saliencyImage;
     }
     return _algorithm;
+}
+
+- (UIImage *)originalSaliency {
+    if (_originalSaliency == nil) {
+        _originalSaliency = self.algorithm.saliencyImage;
+    }
+    return _originalSaliency;
 }
 
 -(void)setImage:(UIImage *)image {
@@ -131,7 +167,7 @@
 }
 
 -(void)setSaliencyImage:(UIImage *)saliencyImage {
-    self.algorithm.saliencyImage = saliencyImage;
+    //self.algorithm.saliencyImage = saliencyImage;
     _saliencyImage = saliencyImage;
 }
 
@@ -193,6 +229,8 @@
         
         [self updateImageViewWithImage:self.image];
         self.saliencyImage = nil;
+        [self resetDrawing];
+        self.saliencyDrawImage = nil;
     } else {
         // error
     }
@@ -213,6 +251,9 @@
 -(void)setAspectRatio:(double)aspectRatio {
     if (self.image) {
         
+        if (self.isShowingSaliency)
+            [self toggleSaliency];
+        
         // assert that it is within 1/10 to 10/1 of the original ratio
         #define RESIZE_FACTOR 10
         double targetAspectRatio = aspectRatio;
@@ -232,9 +273,6 @@
         
         UIImage *modifiedImage = [self.algorithm autoRetargeting];
         [self updateImageViewWithImage:modifiedImage];
-        
-        if (self.isShowingSaliency)
-            [self toggleSaliency];
     }
     
     // TODO
@@ -266,25 +304,42 @@
 
 - (void)toggleSaliency {
     if (self.isShowingSaliency) {
-        //[self updateImageViewWithImage:self.image];
         self.saliencyImageView.image = nil;
+        self.drawImageView.image = nil;
+        //[self updateImageViewWithImage:[self maskImage:self.algorithm.saliencyImage withMask:self.drawImage]];
+        
+        if (self.didDraw) {
+            //UIGraphicsBeginImageContextWithOptions(self.saliencyImageView.frame.size, NO, 0.0);
+            UIGraphicsBeginImageContext(self.saliencyImageView.frame.size);
+            [self.algorithm.saliencyImage drawInRect:CGRectMake(0, 0, self.saliencyImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+            [self.saliencyDrawImage drawInRect:CGRectMake(0, 0, self.saliencyImageView.frame.size.width, self.saliencyImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+            
+            UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            self.algorithm.saliencyImage = temp;
+            self.didDraw = NO;
+            self.saliencyImage = self.algorithm.saliencyImage;
+            
+            //[self updateImageViewWithImage:self.algorithm.saliencyImage];
+            self.drawImage = nil;
+        }
     }
     else {
         if (self.saliencyImage)
             self.saliencyImageView.image = self.saliencyImage;
         else {
-            UIImage *maskedImage = [self maskImage:self.algorithm.saliencyImage withMask:self.image];
+            UIImage *maskedImage = [self maskImage2:self.algorithm.saliencyImage withMask:self.image];
             //[self updateImageViewWithImage:maskedImage];
         
             //saliencyImage = [self changeColorToTransparent:saliencyImage];
-            maskedImage = [self maskImage2:self.algorithm.saliencyImage withMask:self.image];
+            //maskedImage = [self maskImage2:self.algorithm.saliencyImage withMask:self.image];
         
             self.saliencyImageView.image = maskedImage;
-            self.saliencyImage = maskedImage;// ?
+            self.saliencyImage = maskedImage;// saliency image is not saliency as in the algorithm. it's the masked saliency.
         }
         [self updateImageViewWithImage:self.image];
         //self.imageView.image = nil;
-        
+        self.drawImageView.image = self.drawImage;
     }
     self.isShowingSaliency = !self.isShowingSaliency;
 }
@@ -325,6 +380,7 @@
 
 - (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)mask
 {
+    if (mask == nil) return image;
     CGImageRef imageReference = image.CGImage;
     UIImage *maskWithAlpha = [mask imageByApplyingAlpha:1];
     
@@ -396,6 +452,95 @@
     [filter setValue:coreImage forKey:kCIInputImageKey];
     CIImage *result = [filter valueForKey:kCIOutputImageKey];
     return [UIImage imageWithCIImage:result];
+}
+
+#pragma mark - Drawer
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    if (!self.isShowingSaliency)
+        return;
+    
+    self.mouseSwiped = NO;
+    UITouch *touch = [touches anyObject];
+    self.lastPoint = [touch locationInView:self.drawImageView];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    if (!self.isShowingSaliency)
+        return;
+    
+    self.mouseSwiped = YES;
+    UITouch *touch = [touches anyObject];
+    CGPoint currentPoint = [touch locationInView:self.drawImageView];
+    
+    UIGraphicsBeginImageContext(self.drawImageView.frame.size);
+    [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height)];
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), self.lastPoint.x, self.lastPoint.y);
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), self.brush );
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), self.red, self.green, self.blue, 1.0);
+    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+    
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    self.tempDrawImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    [self.tempDrawImageView setAlpha:self.opacity];
+    UIGraphicsEndImageContext();
+    
+    self.lastPoint = currentPoint;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    if (!self.isShowingSaliency)
+        return;
+    
+    if(!self.mouseSwiped) {
+        UIGraphicsBeginImageContext(self.drawImageView.frame.size);
+        [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height)];
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), self.brush);
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), self.red, self.green, self.blue, self.opacity);
+        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), self.lastPoint.x, self.lastPoint.y);
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), self.lastPoint.x, self.lastPoint.y);
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        CGContextFlush(UIGraphicsGetCurrentContext());
+        self.tempDrawImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    self.drawImageView.image = self.drawImage;
+    
+    UIGraphicsBeginImageContext(self.drawImageView.frame.size);
+    [self.saliencyDrawImage drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+    [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:self.opacity];
+    self.saliencyDrawImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIGraphicsBeginImageContext(self.drawImageView.frame.size);
+    [self.drawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+    [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:self.opacity];
+    self.drawImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    self.tempDrawImageView.image = nil;
+    UIGraphicsEndImageContext();
+    
+    self.didDraw = YES;
+    self.drawImage = self.drawImageView.image;
+}
+
+- (void)resetDrawing {
+    self.drawImageView.image = nil;
+    self.drawImage = nil;
+    self.didDraw = false;
+    
+    self.algorithm.saliencyImage = self.originalSaliency;
+    self.saliencyImage = self.originalSaliency;
+    if (!self.isShowingSaliency)
+        [self toggleSaliency];
+}
+
+- (IBAction)resetDrawing:(id)sender {
+    [self resetDrawing];
 }
 
 
