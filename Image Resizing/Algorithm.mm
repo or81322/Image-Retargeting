@@ -158,9 +158,12 @@ using namespace std;
 }
 
 -(void)setSaliencyImage:(UIImage *)saliencyImage{
-    if (CGSizeEqualToSize(self.image.size, saliencyImage.size)) {
+    if (saliencyImage == nil)
+        return;
+    //if (CGSizeEqualToSize(self.image.size, saliencyImage.size)) {
+        NSLog(@"sogeking");
         _saliencyImage = saliencyImage;
-    }
+    //}
     // need to make sure that the image and its saliency image are with the same size
 }
 

@@ -230,8 +230,8 @@
         //self.drawImageView.image = nil;
         self.drawImage = nil;
         self.didDraw = false;
-        self.originalSaliency = nil;
         [self.algorithm recalculateSaliency];
+        self.originalSaliency = self.algorithm.saliencyImage;
  
     } else {
         // error
@@ -311,12 +311,13 @@
         
         if (self.didDraw) {
             //UIGraphicsBeginImageContextWithOptions(self.saliencyImageView.frame.size, NO, 0.0);
-            UIGraphicsBeginImageContext(self.saliencyImageView.frame.size);
-            [self.algorithm.saliencyImage drawInRect:CGRectMake(0, 0, self.saliencyImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
-            [self.saliencyDrawImage drawInRect:CGRectMake(0, 0, self.saliencyImageView.frame.size.width, self.saliencyImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+            UIGraphicsBeginImageContext(self.drawImageView.frame.size);
+            [self.algorithm.saliencyImage drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+            [self.drawImage drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
             
             UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
+            
             self.algorithm.saliencyImage = temp;
             self.didDraw = NO;
             //self.maskedSaliencyImage = self.algorithm.saliencyImage;
