@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) IBOutlet UIImageView *saliencyImageView;
-@property (strong, nonatomic) UIImage *saliencyImage;
+@property (strong, nonatomic) UIImage *maskedSaliencyImage;
 @property (strong, nonatomic) UIImage *originalSaliency;
 
 
@@ -112,7 +112,7 @@
 #pragma mark - Properties
 
 @synthesize image = _image;
-@synthesize saliencyImage = _saliencyImage;
+//@synthesize saliencyImage = _saliencyImage;
 
 -(UIImagePickerController *)imagePickerController {
     if (_imagePickerController == nil) {
@@ -164,11 +164,6 @@
 -(void)setImage:(UIImage *)image {
     self.algorithm.image = image;
     _image = image;
-}
-
--(void)setSaliencyImage:(UIImage *)saliencyImage {
-    //self.algorithm.saliencyImage = saliencyImage;
-    _saliencyImage = saliencyImage;
 }
 
 #pragma mark - Navigation
@@ -228,7 +223,7 @@
             [self toggleSaliency];
         
         [self updateImageViewWithImage:self.image];
-        self.saliencyImage = nil;
+        self.maskedSaliencyImage = nil;
         [self resetDrawing];
         self.saliencyDrawImage = nil;
     } else {
@@ -306,7 +301,6 @@
     if (self.isShowingSaliency) {
         self.saliencyImageView.image = nil;
         self.drawImageView.image = nil;
-        //[self updateImageViewWithImage:[self maskImage:self.algorithm.saliencyImage withMask:self.drawImage]];
         
         if (self.didDraw) {
             //UIGraphicsBeginImageContextWithOptions(self.saliencyImageView.frame.size, NO, 0.0);
@@ -318,15 +312,15 @@
             UIGraphicsEndImageContext();
             self.algorithm.saliencyImage = temp;
             self.didDraw = NO;
-            self.saliencyImage = self.algorithm.saliencyImage;
+            self.maskedSaliencyImage = self.algorithm.saliencyImage;
+            //self.maskedSaliencyImage = nil;
             
-            //[self updateImageViewWithImage:self.algorithm.saliencyImage];
             self.drawImage = nil;
         }
     }
     else {
-        if (self.saliencyImage)
-            self.saliencyImageView.image = self.saliencyImage;
+        if (self.maskedSaliencyImage)
+            self.saliencyImageView.image = self.maskedSaliencyImage;
         else {
             UIImage *maskedImage = [self maskImage2:self.algorithm.saliencyImage withMask:self.image];
             //[self updateImageViewWithImage:maskedImage];
@@ -335,7 +329,7 @@
             //maskedImage = [self maskImage2:self.algorithm.saliencyImage withMask:self.image];
         
             self.saliencyImageView.image = maskedImage;
-            self.saliencyImage = maskedImage;// saliency image is not saliency as in the algorithm. it's the masked saliency.
+            self.maskedSaliencyImage = maskedImage;// saliency image is not saliency as in the algorithm. it's the masked saliency.
         }
         [self updateImageViewWithImage:self.image];
         //self.imageView.image = nil;
@@ -534,12 +528,12 @@
     self.didDraw = false;
     
     self.algorithm.saliencyImage = self.originalSaliency;
-    self.saliencyImage = self.originalSaliency;
+    self.maskedSaliencyImage = self.originalSaliency;
     
     if (!self.isShowingSaliency)
         [self toggleSaliency];
     else
-        self.saliencyImageView.image = self.saliencyImage;
+        self.saliencyImageView.image = self.maskedSaliencyImage;
 }
 
 - (IBAction)resetDrawing:(id)sender {

@@ -150,6 +150,7 @@ using namespace std;
 -(UIImage *)saliencyImage {
     if (_saliencyImage == nil) {
         if (self.image) {
+            NSLog(@"Damn u kakarot");
             _saliencyImage = [self.saliencyFilter getSaliencyImageFromImage:self.image];
         }
     }
