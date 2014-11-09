@@ -84,8 +84,11 @@
     [self.imageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.imageView.layer setBorderWidth: 6.0];
     [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
-    [self.drawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
-    [self.tempDrawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+    //[self.drawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+    //[self.tempDrawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+    
+    CGRect frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.height);
+    self.drawImageView.frame = self.tempDrawImageView.frame = self.imageView.frame;
 
 
     //[self.saliencyImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
@@ -103,8 +106,10 @@
         if (image) {
             self.imageView.image = image;
             [self.imageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
-            [self.drawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
-            [self.tempDrawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+            //[self.drawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+            //[self.tempDrawImageView setFrame:AVMakeRectWithAspectRatioInsideRect(self.imageView.image.size, self.saliencyImageView.frame)];
+            CGRect frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.height);
+            self.drawImageView.frame = self.tempDrawImageView.frame = self.imageView.frame;
         }
     }
 }
@@ -310,7 +315,7 @@
         self.drawImageView.image = nil;
         
         if (self.didDraw) {
-            //UIGraphicsBeginImageContextWithOptions(self.saliencyImageView.frame.size, NO, 0.0);
+            //UIGraphicsBeginImageContextWithOptions(self.drawImageView.frame.size, NO, 0.0f);
             UIGraphicsBeginImageContext(self.drawImageView.frame.size);
             [self.algorithm.saliencyImage drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
             [self.drawImage drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
@@ -476,6 +481,7 @@
     UITouch *touch = [touches anyObject];
     CGPoint currentPoint = [touch locationInView:self.drawImageView];
     
+    //UIGraphicsBeginImageContextWithOptions(self.drawImageView.frame.size, NO, 0.0f);
     UIGraphicsBeginImageContext(self.drawImageView.frame.size);
     [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height)];
     CGContextMoveToPoint(UIGraphicsGetCurrentContext(), self.lastPoint.x, self.lastPoint.y);
@@ -499,6 +505,8 @@
         return;
     
     if(!self.mouseSwiped) {
+        //UIGraphicsBeginImageContextWithOptions(self.drawImageView.frame.size, NO, 0.0f);
+
         UIGraphicsBeginImageContext(self.drawImageView.frame.size);
         [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height)];
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
@@ -513,13 +521,17 @@
     }
     self.drawImageView.image = self.drawImage;
     
+    //UIGraphicsBeginImageContextWithOptions(self.drawImageView.frame.size, NO, 0.0f);
+
     UIGraphicsBeginImageContext(self.drawImageView.frame.size);
     [self.saliencyDrawImage drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
     [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:self.opacity];
     self.saliencyDrawImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    UIGraphicsBeginImageContext(self.drawImageView.frame.size);
+    UIGraphicsBeginImageContextWithOptions(self.drawImageView.frame.size, NO, 0.0f);
+
+    //UIGraphicsBeginImageContext(self.drawImageView.frame.size);
     [self.drawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
     [self.tempDrawImageView.image drawInRect:CGRectMake(0, 0, self.drawImageView.frame.size.width, self.drawImageView.frame.size.height) blendMode:kCGBlendModeNormal alpha:self.opacity];
     self.drawImageView.image = UIGraphicsGetImageFromCurrentImageContext();
