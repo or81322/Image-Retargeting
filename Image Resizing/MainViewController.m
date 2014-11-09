@@ -535,8 +535,11 @@
     
     self.algorithm.saliencyImage = self.originalSaliency;
     self.saliencyImage = self.originalSaliency;
+    
     if (!self.isShowingSaliency)
         [self toggleSaliency];
+    else
+        self.saliencyImageView.image = self.saliencyImage;
 }
 
 - (IBAction)resetDrawing:(id)sender {
