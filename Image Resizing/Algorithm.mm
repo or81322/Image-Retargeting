@@ -164,6 +164,10 @@ using namespace std;
     // need to make sure that the image and its saliency image are with the same size
 }
 
+- (void)recalculateSaliency {
+    self.saliencyImage = [self.saliencyFilter getSaliencyImageFromImage:self.image];
+}
+
 #pragma mark - assertions
 
 -(BOOL)isCroppingNeeded {

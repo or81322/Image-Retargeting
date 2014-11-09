@@ -162,6 +162,7 @@
 }
 
 -(void)setImage:(UIImage *)image {
+    self.algorithm.saliencyImage = nil;
     self.algorithm.image = image;
     _image = image;
 }
@@ -224,8 +225,14 @@
         
         [self updateImageViewWithImage:self.image];
         self.maskedSaliencyImage = nil;
-        [self resetDrawing];
+        //self.saliencyImageView.image = nil;
         self.saliencyDrawImage = nil;
+        //self.drawImageView.image = nil;
+        self.drawImage = nil;
+        self.didDraw = false;
+        self.originalSaliency = nil;
+        [self.algorithm recalculateSaliency];
+ 
     } else {
         // error
     }
@@ -312,8 +319,8 @@
             UIGraphicsEndImageContext();
             self.algorithm.saliencyImage = temp;
             self.didDraw = NO;
-            self.maskedSaliencyImage = self.algorithm.saliencyImage;
-            //self.maskedSaliencyImage = nil;
+            //self.maskedSaliencyImage = self.algorithm.saliencyImage;
+            self.maskedSaliencyImage = nil;
             
             self.drawImage = nil;
         }
@@ -527,8 +534,10 @@
     self.drawImage = nil;
     self.didDraw = false;
     
+    self.saliencyDrawImage = nil;
+    
     self.algorithm.saliencyImage = self.originalSaliency;
-    self.maskedSaliencyImage = self.originalSaliency;
+    self.maskedSaliencyImage = [self maskImage2:self.algorithm.saliencyImage withMask:self.image];
     
     if (!self.isShowingSaliency)
         [self toggleSaliency];

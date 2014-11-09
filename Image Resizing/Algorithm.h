@@ -15,7 +15,7 @@
 @property (nonatomic) CGFloat percentage;
 
 @property (nonatomic , weak) UIImage *image;
-@property (nonatomic , weak) UIImage *saliencyImage;
+@property (nonatomic , strong) UIImage *saliencyImage;
 
 //
 
@@ -28,6 +28,8 @@
 @property (readonly , getter=isCroppingNeeded) BOOL CroppingNeeded;
 
 //
+
+- (void)recalculateSaliency;
 
 // TODO update saliencyImage method
 
