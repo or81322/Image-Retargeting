@@ -223,7 +223,7 @@
     UIBarButtonItem *compareButton = (UIBarButtonItem *)sender;
 
     if (!self.isCompareMode) {
-        if (self.modifiedImage) {
+        if (self.modifiedImage && self.imageView.image == self.modifiedImage) {
             self.isCompareMode = true;
             compareButton.title = @"stop comparing";
             [UIView transitionWithView:self.imageView
