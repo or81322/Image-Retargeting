@@ -23,6 +23,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) UIImage *modifiedImage;
 @property (weak, nonatomic) IBOutlet UIImageView *saliencyImageView;
 @property (strong, nonatomic) UIImage *maskedSaliencyImage;
 @property (strong, nonatomic) UIImage *originalSaliency;
@@ -31,6 +32,8 @@
 @property (nonatomic , strong) Algorithm *algorithm;
 
 @property (nonatomic) BOOL isShowingSaliency;
+
+@property (nonatomic) BOOL isCompareMode;
 
 @property (strong, nonatomic) UIImage *saliencyDrawImage;
 @property (strong, nonatomic) UIImage *drawImage;
@@ -93,6 +96,7 @@
 
     //[self.saliencyImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     //[self.saliencyImageView.layer setBorderWidth: 6.0];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -215,6 +219,38 @@
     }
 }
 
+- (IBAction)toggleCompareMode:(id)sender {
+    UIBarButtonItem *compareButton = (UIBarButtonItem *)sender;
+
+    if (!self.isCompareMode) {
+        if (self.modifiedImage) {
+            self.isCompareMode = true;
+            compareButton.title = @"stop comparing";
+            [UIView transitionWithView:self.imageView
+                              duration:3.0f
+                               options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^{
+                                [UIView setAnimationRepeatCount:3];
+                                self.imageView.image = self.image;
+                            } completion:^(BOOL finished) {
+                                if(finished){
+                                    NSLog(@"success");
+                                    [UIView animateWithDuration:2.0f animations:NULL];
+                                }
+                            }
+             ];
+            
+        }
+        //TODO side by side
+        
+    } else {
+        [self.imageView.layer removeAllAnimations];
+        self.imageView.image = self.modifiedImage;
+        compareButton.title = @"compare";
+        self.isCompareMode = false;
+    }
+}
+
 #pragma mark - UIImagePickerController
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -229,6 +265,7 @@
             [self toggleSaliency];
         
         [self updateImageViewWithImage:self.image];
+        self.modifiedImage = nil;
         self.maskedSaliencyImage = nil;
         //self.saliencyImageView.image = nil;
         self.saliencyDrawImage = nil;
@@ -272,18 +309,28 @@
         double aspectRatioFactor = targetAspectRatio / self.sourceAspectRatio;
         if (aspectRatioFactor > 1) {
             targetimageWidth *= aspectRatioFactor;
-        } else {
+        } else if (aspectRatioFactor > 1) {
             targetImageHeight /= aspectRatioFactor;
+        } else {
+            [self updateImageViewWithImage:self.image];
+            self.modifiedImage = nil;
+            return;
         }
         
         self.algorithm.targetImageSize = CGSizeMake(targetimageWidth, targetImageHeight);
         
-        UIImage *modifiedImage = [self.algorithm autoRetargeting];
-        [self updateImageViewWithImage:modifiedImage];
+        // dispatch all the algorithm functionality to another thread
+        dispatch_queue_t algorithmQ = dispatch_queue_create("algorithm thread", NULL);
+        dispatch_async(algorithmQ, ^{
+            self.modifiedImage = [self.algorithm autoRetargeting];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self updateImageViewWithImage:self.modifiedImage];
+            });
+        });
     }
     
     // TODO
-    // run the algorithm on different thread
     // maybe should keep the aspect ratio selection
 }
 
