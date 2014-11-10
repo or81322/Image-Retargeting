@@ -88,7 +88,6 @@
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="compareButton" destination="tH3-3N-Lrm" id="C9M-Sj-I4G"/>
                         <outlet property="drawImageView" destination="Go5-xp-nrb" id="Nli-fL-8N1"/>
                         <outlet property="imageView" destination="Int-pF-gCw" id="J1D-Mc-MtW"/>
                         <outlet property="saliencyImageView" destination="jJl-yc-WGf" id="G2w-G1-7Xx"/>

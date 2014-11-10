@@ -227,15 +227,16 @@
             self.isCompareMode = true;
             compareButton.title = @"stop comparing";
             [UIView transitionWithView:self.imageView
-                              duration:3.0f
-                               options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionTransitionCrossDissolve
+                              duration:4.0f
+                               options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionCurveEaseInOut
                             animations:^{
-                                [UIView setAnimationRepeatCount:3];
+                                [UIView setAnimationRepeatCount:2];
                                 self.imageView.image = self.image;
                             } completion:^(BOOL finished) {
                                 if(finished){
-                                    NSLog(@"success");
-                                    [UIView animateWithDuration:2.0f animations:NULL];
+                                    self.imageView.image = self.modifiedImage;
+                                    compareButton.title = @"compare";
+                                    self.isCompareMode = false;
                                 }
                             }
              ];
@@ -309,7 +310,7 @@
         double aspectRatioFactor = targetAspectRatio / self.sourceAspectRatio;
         if (aspectRatioFactor > 1) {
             targetimageWidth *= aspectRatioFactor;
-        } else if (aspectRatioFactor > 1) {
+        } else if (aspectRatioFactor < 1) {
             targetImageHeight /= aspectRatioFactor;
         } else {
             [self updateImageViewWithImage:self.image];
